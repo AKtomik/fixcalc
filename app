@@ -1,3 +1,4 @@
+from calculate import calcul 
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -10,7 +11,7 @@ def index():
 def calculate():
     try:
         expression = request.form['expression']
-        result = eval(expression)
+        result = calcul(expression)
         return jsonify({'result': result})
     except Exception as e:
         return jsonify({'error': str(e)})
