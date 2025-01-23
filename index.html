@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flask Calculator</h1>
+    <form id="calc-form">
+        <input type="text" id="expression" name="expression" placeholder="Enter expression" required>
+        <button type="submit">Calculate</button>
+    </form>
+    <h2 id="result"></h2>
+    <script>
+        const form = document.getElementById('calc-form');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const expression = document.getElementById('expression').value;
+            try {
+                const response = await fetch('/calculate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ expression }),
+                });
+                const data = await response.json();
+                if (data.result !== undefined) {
+                    resultDiv.textContent = `Result: ${data.result}`;
+                } else {
+                    resultDiv.textContent = `Error: ${data.error}`;
+                }
+            } catch (err) {
+                resultDiv.textContent = 'Error: Could not calculate.';
+            }
+        });
+    </script>
+</body>
+</html>
