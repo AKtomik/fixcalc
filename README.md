@@ -14,4 +14,5 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - [ ] calcul de X
 - [ ] calcul de dérivé
 - [x] app web 
-
+### url 
+https://nsi.t-lab.ovh
