@@ -95,6 +95,11 @@
         <input type="text" name="expression" placeholder="Enter expression" required>
         <button type="submit">Calculate</button>
     </form>
+    <form action="/calculate" method="post">
+        <button type="submit" name="expression" value="(33*9)/(11*27)+1">
+            (33*9)/(11*27)+1
+        </button>
+    </form>
     {% if result is not none %}
         <h2>Result: {{ result }}</h2>
     {% elif error is not none %}
