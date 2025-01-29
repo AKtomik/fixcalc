@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Calculator</title>
     <style>
-
+        /* Global styles */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             text-align: center;
@@ -63,28 +63,11 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-bottom: 10px;
         }
 
         button:hover {
             background-color: #005bb5;
-        }
-
-        /* GitHub button styling */
-        .github-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
-            background-color: #24292f;
-            color: white;
-            font-size: 1rem;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .github-btn:hover {
-            background-color: #3b4045;
         }
 
         /* Responsive styling */
@@ -108,20 +91,29 @@
     </style>
 </head>
 <body>
-    <h1>Flask Calculator</h1>
+    <h1>Flask Calculator Example</h1>
     <form action="/calculate" method="post">
-        <input type="text" name="expression" placeholder="Enter expression" required>
-        <button type="submit">Calculate</button>
+        <button type="submit" name="expression" value="(33*9)/(11*27)+1">
+            (33*9)/(11*27)+1
+        </button>
+        <button type="submit" name="expression" value="314+1592-6535/8979*32+38">
+            314+1592-6535/8979*32+38
+        </button>
+        <button type="submit" name="expression" value="2-1">
+            2-1
+        </button>
+        <button type="submit" name="expression" value="2/3">
+            2/3
+        </button>
+        <button type="submit" name="expression" value="3/2">
+            3/2
+        </button>
+        <button type="submit" name="expression" value="1+2*3">
+            1+2*3
+        </button>
+        <button type="submit" name="expression" value="1+(2*3)">
+            1+(2*3)
+        </button>
     </form>
-    <form action="/exmeple" method="post">
-        <button type="submit">Example Page</button>
-    </form>
-    
-    {% if result is not none %}
-        <h2>Result: {{ result }}</h2>
-    {% elif error is not none %}
-        <h2>Error: {{ error }}</h2>
-    {% endif %}
-    <a href="https://github.com/AKtomik/fixcalc" class="github-btn" target="_blank">Visit on GitHub</a>
 </body>
 </html>
