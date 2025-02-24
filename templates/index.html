@@ -87,6 +87,46 @@
             background-color: #3b4045;
         }
 
+        /* Toggle button styling */
+        .toggle-btn {
+            display: none; /* Hide the checkbox itself */
+        }
+
+        .toggle-label {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #0070c9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Change background color when checked */
+        .toggle-btn:checked + .toggle-label {
+            background-color: #005194;
+        }
+
+        /* Add label text change on toggle */
+        .toggle-btn:checked + .toggle-label::after {
+            content: 'décimaux'; /* Change text to 'decimals' when active */
+        }
+
+        .toggle-label::after {
+            content: 'fraction'; /* Default label text */
+            transition: content 0.3s ease;
+        }
+
+        /* Hover effect to make it interactive */
+        .toggle-label:hover {
+            background-color: #005bb5;
+        }
+
         /* Responsive styling */
         @media (max-width: 600px) {
             body {
@@ -111,9 +151,12 @@
     <h1>Flask Calculator</h1>
     <form action="/calculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
+        <input type="checkbox" id="toggleButton" name="v" class="toggle-btn" style="display:none;">
+        <label for="toggleButton" class="toggle-label"></label>
+    
         <button type="submit">Calculate</button>
     </form>
-    <form action="/exmeple" method="post">
+    <form action="/example" method="post">
         <button type="submit">Example Page</button>
     </form>
     
