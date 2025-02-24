@@ -10,6 +10,9 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     expression = request.form.get('expression')
+    is_fraction = 'v' in request.form 
+    print(is_fraction)
+    
     try:
         result = calcul(expression)  
         return render_template('index.html', result=result, error=None)

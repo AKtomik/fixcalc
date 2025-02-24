@@ -44,3 +44,20 @@ operators = {
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 }
+derivatives = {
+    "constant": "0",
+    "x^n": "n*x^(n-1)",
+    "1/x": "-1/x^2",
+    "sqrt(x)": "1/(2*sqrt(x))",
+    "cos(x)": "-sin(x)",
+    "sin(x)": "cos(x)",
+    "u+v": "u' + v'",
+    "u*v": "u'*v + u*v'",
+    "u/v": "(u'*v - u*v') / v^2",
+    "v(u(x))": "(v'(u(x))) * u'(x)",
+    "e^(u(x))": "u'(x) * e^(u(x))",
+    "sqrt(u(x))": "u'(x) / (2*sqrt(u(x)))",
+    "(u(x))^n": "n * u'(x) * u(x)^(n-1)",
+    "cos(u(x))": "-u'(x) * sin(u(x))",
+    "sin(u(x))": "u'(x) * cos(u(x))"
+}
