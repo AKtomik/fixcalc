@@ -1,3 +1,5 @@
+from enum import Enum
+
 valid_numbers="1234567890.,"
 valid_variable="XYZ"
 valid_none="_ "

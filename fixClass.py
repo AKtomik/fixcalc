@@ -56,7 +56,7 @@ def stringToInfix(string):
 
 
 def infixToPostfix(infix):
-	print("infix=",infix)
+	#print("infix=",infix)
 	cache=Pile()#p
 	postfix=Pile()#T'
 	while not infix.est_vide():
@@ -105,7 +105,7 @@ def infixToPostfix(infix):
 
 #computer
 def calculatePostfixed(postfix):
-	print("postfix=",postfix)
+	#print("postfix=",postfix)
 	cache=Pile()
 	while not postfix.est_vide():
 		op=postfix.depiler()
