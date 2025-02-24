@@ -39,8 +39,8 @@ operators = {
 	'-': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a-b, 1),
 	'*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a*b, 2),
 	'/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a/b, 2),
-	'(': Operator(OperatorType.PARENTHESES, None, 3),#special operator.
-	')': Operator(OperatorType.PARENTHESES, None, 3),#special operator.
+	'^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a**b, 3),
+	#'^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a**b, 3),
+	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
+	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 }
-valid_numbers="1234567890.,"
-valid_none="_ "

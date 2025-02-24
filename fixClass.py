@@ -1,9 +1,11 @@
-from operators import operators, valid_none, valid_numbers
+from operators import operators
+from members import Member, valid_none, valid_numbers
+
 
 from dep.pile import Pile
 from dep.file import File
 
-#class
+
 class postFix:
 	def __init__(self, expressionString=None):
 		if (expressionString):
@@ -17,6 +19,7 @@ class postFix:
 #converter
 def stringToInfix(string):
 	infix=Pile()
+
 	number=""
 	for char in string:
 
