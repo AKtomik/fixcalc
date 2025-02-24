@@ -8,11 +8,10 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 ### réalisation
 - [x] conversions infixe/postfixe
 - [x] calcul d'expression mathématique sans X
-- [ ] frontend
+- [x] frontend
 - [ ] opérations à entrée unique
 - [ ] orienter objet
 - [ ] calcul de X
 - [ ] calcul de dérivé
-- [x] app web 
 ### url 
 https://nsi.t-lab.ovh
