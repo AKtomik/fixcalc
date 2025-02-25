@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from calculate import calcul  
+from Fraction import vr  
 
 app = Flask(__name__)
 
@@ -10,11 +11,12 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     expression = request.form.get('expression')
-    is_fraction = 'v' in request.form 
-    print(is_fraction)
+    v = 'v' in request.form 
+
     
     try:
-        result = calcul(expression)  
+        result = vr(calcul(expression),v)  
+        print(result)
         return render_template('index.html', result=result, error=None)
     except Exception:
         return render_template('index.html', result=None, error="Invalid expression")

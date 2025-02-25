@@ -24,7 +24,11 @@ class Fraction:
 
     def __str__(self):
         return f"{int(self.v)}/{int(self.d)}"
+def vr(r,t):
+    if t==True :
+        return r
+    else :
+        return Fraction(r)
 
-decimal_number = 0.75
-fraction_converter = Fraction(decimal_number)
-print(fraction_converter)
+
+
