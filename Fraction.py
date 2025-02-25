@@ -1,6 +1,6 @@
 class Fraction:
     def __init__(self, v):
-        self.v = v
+        self.v = float(v)
         self.d = 1
         self.simplify()
 
@@ -19,8 +19,8 @@ class Fraction:
     def simplify(self):
         self.dénominateur()
         gcd = self.pgcd(self.v, self.d)
-        self.v //= gcd
-        self.d //= gcd
+        self.v /= gcd
+        self.d /= gcd
 
     def __str__(self):
         return f"{int(self.v)}/{int(self.d)}"
@@ -30,5 +30,4 @@ def vr(r,t):
     else :
         return Fraction(r)
 
-
-
+print(Fraction(9.6328))
