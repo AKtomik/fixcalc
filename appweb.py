@@ -12,7 +12,6 @@ def index():
 def calculate():
     expression = request.form.get('expression')
     v = 'v' in request.form 
-
     
     try:
         result = vr(calcul(expression),v)  
