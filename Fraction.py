@@ -26,8 +26,9 @@ class Fraction:
         return f"{int(self.v)}/{int(self.d)}"
 def vr(r,t):
     if t==True :
-        return r
-    else :
         return Fraction(r)
+    else :
+        return r
+        
 
 print(Fraction(9.6328))
