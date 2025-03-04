@@ -20,9 +20,9 @@ def calculate():
     except Exception:
         return render_template('index.html', result=None, error="Invalid expression")
 
-@app.route('/exmeple', methods=['POST'])
+@app.route('/example', methods=['POST'])
 def example():
-    return render_template('exmeple.html')  
+    return render_template('example.html')  
 
 if __name__ == '__main__':
     app.run(debug=True)
