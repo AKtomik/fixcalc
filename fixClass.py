@@ -1,5 +1,6 @@
 from operators import operators
 from members import Member, valid_none, valid_numbers
+from resluts import RoundResult
 
 
 from dep.pile import Pile
@@ -7,9 +8,9 @@ from dep.file import File
 
 
 class postFix:
-	def __init__(self, expressionString=None):
+	def __init__(self, expressionString=None, resultTypeClass=RoundResult):
 		if (expressionString):
-			self.pile=infixToPostfix(stringToInfix(expressionString))
+			self.pile=infixToPostfix(stringToInfix(expressionString, resultTypeClass))
 		else:
 			self.pile=Pile()
 	
@@ -17,7 +18,7 @@ class postFix:
 		return calculatePostfixed(self.pile)
 
 #converter
-def stringToInfix(string):
+def stringToInfix(string, resultTypeClass):
 	infix=Pile()
 
 	number=""
@@ -37,7 +38,7 @@ def stringToInfix(string):
 		#is an operator
 		if len(number)>0:
 			#add the full number
-			infix.empiler(float(number))
+			infix.empiler(resultTypeClass.create_from_string(number))
 			number=""
 		
 		#add the operator
