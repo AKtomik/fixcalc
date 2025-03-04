@@ -2,7 +2,7 @@ from fixClass import postFix
 from resluts import FractionResult
 
 
-def calcul(string):
+def calcul(string, resultTypeClass):
     return f"{postFix(string).calculate()}"
 t=calcul("(33*9)/(11*27)+1")
 
