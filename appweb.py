@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 from calculate import calcul  
-from Fraction import vr  
+from resluts import FractionResult ,RoundResult 
 
 app = Flask(__name__)
 
@@ -12,9 +12,14 @@ def index():
 def calculate():
     expression = request.form.get('expression')
     v = 'v' in request.form 
-    
+    def vr(t):
+        if t==True :
+            return FractionResult
+        else :
+            return RoundResult
+
     try:
-        result = vr(calcul(expression),v)  
+        result = calcul(expression,vr(v))
         print(result)
         return render_template('index.html', result=result, error=None)
     except Exception:
