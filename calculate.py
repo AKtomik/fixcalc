@@ -3,7 +3,7 @@ from resluts import FractionResult
 
 
 def calcul(string, resultTypeClass):
-    return f"{postFix(string).calculate()}"
+    return f"{postFix(string, resultTypeClass).calculate()}"
 t=calcul("(33*9)/(11*27)+1")
 
 print(FractionResult(1,2))
