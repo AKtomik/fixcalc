@@ -20,29 +20,29 @@ def clean_mantissa_string(string):
 
 class RoundResult:
 
-	def __init__(self, floater : int):
+	def __init__(self, floater : float):
 		self.float : float=floater
 	
 	def create_from_float(from_float):
-		return FractionResult(from_float)
+		return RoundResult(from_float)
 		
 	def create_from_string(the_string):
-		return FractionResult(float(the_string))
+		return RoundResult(float(the_string))
 	
 	def __add__(self, other):
-		self.float+other.float
+		self.float=self.float+other.float
 		return self
 		
 	def __sub__(self, other):
-		self.float-other.float
+		self.float=self.float-other.float
 		return self
 
 	def __mul__(self, other):
-		self.float*other.float
+		self.float=self.float*other.float
 		return self
 		
 	def __truediv__(self, other):
-		self.float/other.float
+		self.float=self.float/other.float
 		return self
 	
 	def __str__(self):
@@ -65,7 +65,11 @@ class FractionResult:
 			return FractionResult(int(mantissa_int*10**exponent),10**exponent)
 		
 	def create_from_string(the_string):
-		return FractionResult(int(the_string.replace(".","")), 10**(len(the_string)-the_string.index(".")-1))
+		if ("." in the_string):
+			denom=10**(len(the_string)-the_string.index(".")-1)
+		else:
+			denom=1
+		return FractionResult(int(the_string.replace(".","")), denom)
 
 	
 	def simplify(self):
