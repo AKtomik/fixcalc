@@ -46,7 +46,7 @@ def stringToInfix(string, resultTypeClass):
 		
 	if len(number)>0:
 		#add the full number
-		infix.empiler(float(number))
+		infix.empiler(resultTypeClass.create_from_string(number))
 
 	#return it
 	r=Pile()
@@ -89,10 +89,12 @@ def infixToPostfix(infix):
 					cache.empiler(op)
 					#raise Exception(f"opération [{op}] inconnue")
 					
-		elif (typeof==int or typeof==float):
-			postfix.empiler(op)
+		#elif (typeof==int or typeof==float):
+		#	postfix.empiler(op)
+		#else:
+		#	raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
 		else:
-			raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
+			postfix.empiler(op)
 			
 	while (not cache.est_vide()):
 		postfix.empiler(cache.depiler())
@@ -119,8 +121,10 @@ def calculatePostfixed(postfix):
 				raise Exception(f"opération [{op}] inconnue")
 			else:
 				cache.empiler(operatorHere.operate(last_1,last_2))
-		elif (typeof==int or typeof==float):
-			cache.empiler(op)
+		#elif (typeof==int or typeof==float):
+		#	cache.empiler(op)
+		#else:
+		#	raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
 		else:
-			raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
+			cache.empiler(op)
 	return cache.depiler()
