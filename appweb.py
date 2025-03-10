@@ -27,7 +27,18 @@ def calculate():
 
 @app.route('/example', methods=['POST'])
 def example():
-    return render_template('example.html')  
+    return render_template('example.html')
+
+@app.route('/derivatives', methods=['POST'])
+def derivatives():
+    return render_template('derivatives.html')  
+@app.route('/derivativescalculate', methods=['POST'])
+def calculate_derivatives():
+
+    try:
+        return render_template('derivatives.html', result="result", error=None)
+    except Exception:
+        return render_template('derivatives.html', result=None, error="Invalid expression")
 
 if __name__ == '__main__':
     app.run(debug=True)
