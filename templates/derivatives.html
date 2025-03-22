@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Derivative Rules</title>
+    <title>Flask Calculator</title>
     <style>
 
         body {
@@ -148,12 +148,18 @@
     </style>
 </head>
 <body>
+    <h1>Flask Calculator</h1>
     <form action="/derivativescalculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
-        <input type="checkbox" id="toggleButton" name="v" class="toggle-btn" style="display:none;">
-        <label for="toggleButton" class="toggle-label"></label>
-    
+
         <button type="submit">Calculate</button>
     </form>
+    
+    {% if result is not none %}
+        <h2>Result: {{ result }}</h2>
+    {% elif error is not none %}
+        <h2>Error: {{ error }}</h2>
+    {% endif %}
+    <a href="https://github.com/AKtomik/fixcalc" class="github-btn" target="_blank">Visit on GitHub</a>
 </body>
 </html> 
