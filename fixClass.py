@@ -8,7 +8,7 @@ from dep.file import File
 
 
 class postFix:
-	def __init__(self, expressionString=None, resultTypeClass=RoundResult, ifUseUnits:bool=False):
+	def __init__(self, expressionString=None, resultTypeClass=RoundResult, ifUseUnits:bool=True):
 		if (ifUseUnits):
 			if (resultTypeClass==UnitsResult):
 				raise TypeError("UnitsResult inside UnitsResult (UnitsResultception)")

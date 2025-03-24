@@ -81,6 +81,7 @@ class FractionResult:
 		return self.numerator*self.denominator>0
 	
 	def simplify(self):
+
 		a,b=self.numerator, self.denominator
 		if (b>a):
 			a,b=b,a
@@ -88,6 +89,12 @@ class FractionResult:
 		david=pgcd(a,b)
 		self.numerator=int(self.numerator//david)
 		self.denominator=int(self.denominator//david)
+
+		#print("1)", self.numerator,"/",self.denominator)
+		if (self.denominator<0):
+			self.numerator=self.numerator*-1
+			self.denominator=self.denominator*-1
+		#print("2)", self.numerator,"/",self.denominator)
 	
 	def __add__(self, other):
 		return FractionResult(self.numerator*other.denominator+other.numerator*self.denominator, other.denominator*self.denominator)
@@ -105,7 +112,10 @@ class FractionResult:
 		self.simplify()
 		if (self.denominator==1):
 			return str(self.numerator)
-		return "("+str(self.numerator) +"/"+ str(self.denominator)+")"
+		sign=""
+		if not self.is_positive():
+			sign="-"
+		return sign+"("+str(abs(self.numerator)) +"/"+ str(self.denominator)+")"
 
 
 class RoundResult:
@@ -240,6 +250,7 @@ digits_to_pow = {
 	"7":"⁷",
 	"8":"⁸",
 	"9":"⁹",
+	"-":"⁻",
 }
 
 class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
