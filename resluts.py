@@ -105,7 +105,7 @@ class FractionResult:
 		self.simplify()
 		if (self.denominator==1):
 			return str(self.numerator)
-		return str(self.numerator) +"/"+ str(self.denominator)
+		return "("+str(self.numerator) +"/"+ str(self.denominator)+")"
 
 
 class RoundResult:
@@ -148,14 +148,13 @@ class RoundResult:
 		return str(self.float)
 		
 
-result_unit_base_class = RoundResult
 
 
 class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72xy")
 	#have to be used only on 
 
-	def __init__(self, amount : RoundResult, units : dict = {}):
-		self.amount=amount
+	def __init__(self, amount, units : dict = {}):
+		self.amount=amount#has to be UnitsResult.result_unit_base_class
 		self.units=units
 	
 	def copy(self):
@@ -172,10 +171,10 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 		return True
 	
 	def create_from_float(from_float):
-		return UnitResultElement(result_unit_base_class.create_from_float(from_float))
+		return UnitResultElement(UnitsResult.result_unit_base_class.create_from_float(from_float))
 		
 	def create_from_string(the_string):
-		return UnitResultElement(result_unit_base_class.create_from_string(the_string))
+		return UnitResultElement(UnitsResult.result_unit_base_class.create_from_string(the_string))
 	
 	#mutate
 	def __neg__(self):
@@ -244,6 +243,10 @@ digits_to_pow = {
 }
 
 class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
+	
+	result_unit_base_class = FractionResult
+	def set_unit_base_class(className):
+		UnitsResult.result_unit_base_class = className
 
 	def __init__(self, composes : list = []):
 		self.compose=composes
@@ -252,13 +255,13 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 	#	return U
 	
 	def create_from_float(from_float):
-		return UnitsResult([UnitResultElement(result_unit_base_class.create_from_float(from_float))])
+		return UnitsResult([UnitResultElement(UnitsResult.result_unit_base_class.create_from_float(from_float))])
 		
 	def create_from_string(the_string):
-		return UnitsResult([UnitResultElement(result_unit_base_class.create_from_string(the_string))])
+		return UnitsResult([UnitResultElement(UnitsResult.result_unit_base_class.create_from_string(the_string))])
 	
 	def create_as_unit(the_string):
-		return UnitsResult([UnitResultElement(result_unit_base_class.create_from_float(1), {the_string: 1})])
+		return UnitsResult([UnitResultElement(UnitsResult.result_unit_base_class.create_from_float(1), {the_string: 1})])
 	
 	#usefull
 	def add_element(self, added_element):#mutate
@@ -300,6 +303,7 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 		
 	def __truediv__(self, other):
 		new_one=UnitsResult()
+		new_one.compose=[]#idk why but this is NEEDED. else this is static.
 		if (len(other.compose)>1):
 			raise ValueError("cant divide with more than one term (yet)")
 		element_other=other.compose[0]

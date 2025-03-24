@@ -3,7 +3,7 @@ from resluts import FractionResult, RoundResult, UnitsResult
 
 
 def calcul(string, resultTypeClass=RoundResult):
-    return f"{postFix(string, resultTypeClass).calculate()}"
+    return f"{postFix(string, resultTypeClass, True).calculate()}"
 #t=calcul("(33*9)/(11*27)+1")
 
 #print(UnitsResult.create_as_unit("x")+UnitsResult.create_as_unit("y"))
@@ -14,10 +14,10 @@ def calcul(string, resultTypeClass=RoundResult):
 #print(UnitsResult.create_as_unit("x")*UnitsResult.create_as_unit("x")*UnitsResult.create_as_unit("x")*UnitsResult.create_as_unit("x")*UnitsResult.create_as_unit("x"))
 #print(calcul("1/3", UnitsResult))
 
-print(calcul("(33*9)/(11*28)+1", UnitsResult))
-print(calcul("13*x*y*y*(13*31)", UnitsResult))
-print(calcul("caca", UnitsResult))
-print(calcul("13(x+y)", UnitsResult))
+print(calcul("(33*9)/(11*28)+1", FractionResult))
+print(calcul("13*x*y*y*(13*31)", FractionResult))
+print(calcul("caca", FractionResult))
+print(calcul("19x/18y", FractionResult))
 #print(calcul("(33*9)/(11*28)+1", RoundResult))
 #print(calcul("(33*9)/(11*28)+1", FractionResult))
 
