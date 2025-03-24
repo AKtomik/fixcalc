@@ -1,7 +1,9 @@
 from enum import Enum
 
 valid_numbers="1234567890.,"
-valid_operators="+-*/^()"
+valid_operators="+-*/^"
+valid_parentheses="()"
+parentheses_closing=")"
 #valid_variable="XYZ"
 valid_none="_ "
 
@@ -17,7 +19,15 @@ class MemberType(Enum):
 	OPERATOR = 4
 	#do operation between values
 	
-class Member:
-	def __init__(memberType, value):
-		self.type=memberType
-		self.value=value
+	PARENTHESE = 5
+	#do priority
+	
+	UNIT = 6
+	#is unit letter
+
+	NOTHING = 0
+	
+#class Member:
+#	def __init__(self, memberType, value):
+#		self.type=memberType
+#		self.value=value

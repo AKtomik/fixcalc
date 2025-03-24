@@ -15,7 +15,9 @@ def calcul(string, resultTypeClass=RoundResult):
 #print(calcul("1/3", UnitsResult))
 
 print(calcul("(33*9)/(11*28)+1", UnitsResult))
-print(calcul("13*x", UnitsResult))
+print(calcul("13*x*y*y*(13*31)", UnitsResult))
+print(calcul("caca", UnitsResult))
+print(calcul("13(x+y)", UnitsResult))
 #print(calcul("(33*9)/(11*28)+1", RoundResult))
 #print(calcul("(33*9)/(11*28)+1", FractionResult))
 

@@ -1,5 +1,5 @@
 from operators import operators
-from members import Member, valid_none, valid_numbers, valid_operators
+from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
 from resluts import RoundResult
 
 
@@ -20,14 +20,6 @@ class postFix:
 #converter
 def stringToInfix(string, resultTypeClass):
 	infix=Pile()
-
-	number=""
-
-	def digit_exit():
-		if len(number)>0:#exit number
-			#add the full number
-			infix.empiler(resultTypeClass.create_from_string(number))
-			number=""
 	
 	#unit=""
 	#def unit_exit():
@@ -35,38 +27,81 @@ def stringToInfix(string, resultTypeClass):
 	#		#add the full unit
 	#		infix.empiler(resultTypeClass.create_from_string(number))
 	#		number=""
+	number=""
+	last_was=MemberType.NOTHING
+	last_closing=False
 
 	for char in string:
 
 		#is nothing
 		if char in valid_none:
-			continue
+			pass
+
 
 		#is a digit
 		elif char in valid_numbers:
+			
+			#smart multiplication
+			if (last_was==MemberType.UNIT 
+			 		or (last_was==MemberType.PARENTHESE and last_closing)):
+				infix.empiler('*')
+			last_was=MemberType.NUMBER_FLOAT
+
 			#create the number
 			#(a number is composed of one or more digits)
 			number=number+char
-			continue
+
+		#is a parenthes
+		elif char in valid_parentheses:
+			#exit number check
+			if len(number)>0:
+				infix.empiler(resultTypeClass.create_from_string(number))
+				number=""
+				
+			closing=(char in parentheses_closing)
+			#smart multiplication
+			if (not closing and (last_was==MemberType.NUMBER_FLOAT or last_was==MemberType.UNIT)):
+				infix.empiler('*')
+			last_was=MemberType.PARENTHESE
+			last_closing=(closing)
+
+			#add the operator
+			infix.empiler(char)
 
 		#is an operator
 		elif char in valid_operators:
-			digit_exit()
+			#exit number check
+			if len(number)>0:
+				infix.empiler(resultTypeClass.create_from_string(number))
+				number=""
 		
+			last_was=MemberType.OPERATOR
+
 			#add the operator
 			infix.empiler(char)
-			continue
 
 		#else mean it is an unit
 		else:
-			digit_exit()
+			#exit number check
+			if len(number)>0:
+				infix.empiler(resultTypeClass.create_from_string(number))
+				number=""
+			
+			#smart multiplication
+			if (last_was==MemberType.UNIT 
+			 		or last_was==MemberType.NUMBER_FLOAT 
+					or (last_was==MemberType.PARENTHESE and last_closing)):
+				infix.empiler('*')
+			last_was=MemberType.UNIT
+
+			#add the unit
 			infix.empiler(resultTypeClass.create_as_unit(char))
 
-	digit_exit()
-		
-	if len(number)>0:#exit number
-		#add the full number
+
+	#exit number check
+	if len(number)>0:
 		infix.empiler(resultTypeClass.create_from_string(number))
+		number=""
 
 	#return it
 	r=Pile()
