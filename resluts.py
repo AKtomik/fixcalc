@@ -188,7 +188,7 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 	
 	#mutate
 	def __neg__(self):
-		self.amount*=-1
+		self.amount*=UnitsResult.result_unit_base_class(-1)
 		return self
 	
 	#operation
