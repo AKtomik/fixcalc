@@ -1,6 +1,6 @@
 from operators import operators
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
-from resluts import RoundResult
+from resluts import RoundResult, UnitsResult
 
 
 from dep.pile import Pile
@@ -8,7 +8,13 @@ from dep.file import File
 
 
 class postFix:
-	def __init__(self, expressionString=None, resultTypeClass=RoundResult):
+	def __init__(self, expressionString=None, resultTypeClass=RoundResult, ifUseUnits:bool=False):
+		if (ifUseUnits):
+			if (resultTypeClass==UnitsResult):
+				raise TypeError("UnitsResult inside UnitsResult (UnitsResultception)")
+			UnitsResult.set_unit_base_class(resultTypeClass)
+			resultTypeClass=UnitsResult
+		
 		if (expressionString):
 			self.pile=infixToPostfix(stringToInfix(expressionString, resultTypeClass))
 		else:
