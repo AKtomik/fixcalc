@@ -43,7 +43,16 @@ operators = {
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 }
-derivatives = {
+#derivatives = {
+#    '+': lambda a, b : 
+#    '-': lambda a, b : 
+#    '*': lambda a, b : 
+#    '/': lambda a, b : 
+#    '^': lambda a, b : 
+#    '(': lambda a, b : 
+#    ')': lambda a, b : 
+#}
+derivatives_string = {
     "constant": "0",
 	"x": "1",
     "x^n": "n*x^(n-1)",
@@ -115,7 +124,7 @@ def derive(expression, variable='x'):
         pass
     
     # Chercher dans le dictionnaire de dérivées
-    for pattern, derivative in derivatives.items():
+    for pattern, derivative in derivatives_string.items():
         # Cas spécifiques
         if pattern == "x^n" and "^" in expression:
             parts = expression.split("^")
