@@ -40,7 +40,6 @@ operators = {
 	'*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a*b, 2),
 	'/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a/b, 2),
 	'^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a**b, 3),
-	#'^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a**b, 3),
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 }

@@ -1,5 +1,5 @@
 from operators import operators
-from members import Member, valid_none, valid_numbers
+from members import Member, valid_none, valid_numbers, valid_operators
 from resluts import RoundResult
 
 
@@ -22,29 +22,49 @@ def stringToInfix(string, resultTypeClass):
 	infix=Pile()
 
 	number=""
+
+	def digit_exit():
+		if len(number)>0:#exit number
+			#add the full number
+			infix.empiler(resultTypeClass.create_from_string(number))
+			number=""
+	
+	#unit=""
+	#def unit_exit():
+	#	if len(unit)>0:#exit unit
+	#		#add the full unit
+	#		infix.empiler(resultTypeClass.create_from_string(number))
+	#		number=""
+
 	for char in string:
 
+		#is nothing
 		if char in valid_none:
-			#is nothing
 			continue
 
-		if char in valid_numbers:
-			#is a digit
+		#is a digit
+		elif char in valid_numbers:
 			#create the number
 			#(a number is composed of one or more digits)
 			number=number+char
 			continue
 
 		#is an operator
-		if len(number)>0:
-			#add the full number
-			infix.empiler(resultTypeClass.create_from_string(number))
-			number=""
+		elif char in valid_operators:
+			digit_exit()
 		
-		#add the operator
-		infix.empiler(char)
+			#add the operator
+			infix.empiler(char)
+			continue
+
+		#else mean it is an unit
+		else:
+			digit_exit()
+			infix.empiler(resultTypeClass.create_as_unit(char))
+
+	digit_exit()
 		
-	if len(number)>0:
+	if len(number)>0:#exit number
 		#add the full number
 		infix.empiler(resultTypeClass.create_from_string(number))
 
