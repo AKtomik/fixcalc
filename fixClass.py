@@ -1,30 +1,28 @@
 from operators import operators, derivates
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
-from resluts import Sett
+from resluts import Sett, Result
 from replace import string_human_shortcut
 
 from dep.pile import Pile
-from dep.file import File
+#from dep.file import File
 
 
-class postFix:
-	def __init__(self, expressionString=None):
-		#(resultTypeClass=RoundResult, ifUseUnits:bool=True)
-		#if (ifUseUnits):
-		#	if (resultTypeClass==UnitsResult):
-		#		raise TypeError("UnitsResult inside UnitsResult (UnitsResultception)")
-		#	Sett.set_unit_base_class(resultTypeClass)
-		#	resultTypeClass=UnitsResult
-		#else:
-		#	Sett.set_unit_base_class(resultTypeClass)
-		#Sett.set_type_class(resultTypeClass)
-		
-		expressionString=string_human_shortcut(expressionString)
-		
-		if (expressionString):
-			self.pile=infixToPostfix(stringToInfix(expressionString))
-		else:
+class PostFix:
+	def __init__(self, expression = None):
+		#convert
+		self.pile=None
+		#print(isinstance(expression,str), type(expression),str)
+		if expression is None:
 			self.pile=Pile()
+		elif isinstance(expression,str):
+			expression=string_human_shortcut(expression)
+			self.pile=infixToPostfix(stringToInfix(expression))
+		elif isinstance(expression,PostFix):
+			self.pile=expression.pile
+		elif isinstance(expression,Result):
+			self.pile=Pile().empiler(expression)
+		else:
+			raise TypeError(f"PostFix expression must by str or Result or PostFix but is {type(expression)}")
 	
 	def calculate(self) -> float:
 		return calculatePostfixed(self.pile)
