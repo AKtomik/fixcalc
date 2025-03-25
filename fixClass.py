@@ -8,18 +8,19 @@ from dep.file import File
 
 
 class postFix:
-	def __init__(self, expressionString=None, resultTypeClass=RoundResult, ifUseUnits:bool=True):
-		if (ifUseUnits):
-			if (resultTypeClass==UnitsResult):
-				raise TypeError("UnitsResult inside UnitsResult (UnitsResultception)")
-			Sett.set_unit_base_class(resultTypeClass)
-			resultTypeClass=UnitsResult
-		else:
-			Sett.set_unit_base_class(resultTypeClass)
-		Sett.set_type_class(resultTypeClass)
+	def __init__(self, expressionString=None):
+		#(resultTypeClass=RoundResult, ifUseUnits:bool=True)
+		#if (ifUseUnits):
+		#	if (resultTypeClass==UnitsResult):
+		#		raise TypeError("UnitsResult inside UnitsResult (UnitsResultception)")
+		#	Sett.set_unit_base_class(resultTypeClass)
+		#	resultTypeClass=UnitsResult
+		#else:
+		#	Sett.set_unit_base_class(resultTypeClass)
+		#Sett.set_type_class(resultTypeClass)
 		
 		if (expressionString):
-			self.pile=infixToPostfix(stringToInfix(expressionString, resultTypeClass))
+			self.pile=infixToPostfix(stringToInfix(expressionString))
 		else:
 			self.pile=Pile()
 	
@@ -30,7 +31,12 @@ class postFix:
 		return derivatePostfixed(self.pile)
 
 #converter
-def stringToInfix(string, resultTypeClass):
+def stringToInfix(string):
+
+	resultTypeClass=Sett.result_type_class
+	if (Sett.result_use_unit):
+		resultTypeClass=UnitsResult
+
 	infix=Pile()
 	
 	#unit=""
@@ -216,11 +222,11 @@ def derivatePostfixed(postfix):
 			if (operatorVanilla==None or operatorDerivate==None):
 				raise Exception(f"opération [{op}] inconnue")
 			else:
-				print("depiled both:", last_1[0], last_2[0], last_1[1], last_2[1])
+				#print("depiled both:", last_1[0], last_2[0], last_1[1], last_2[1])
 				cache.empiler([operatorVanilla.operate(last_1[0], last_2[0]), operatorDerivate.derivate(last_1[0], last_2[0], last_1[1], last_2[1])])
 
 		else:
 			result=[op, op.copy().derivate()]
-			print("repiled both:", result[0], result[1])
+			#print("repiled both:", result[0], result[1])
 			cache.empiler(result)
 	return cache.depiler()[1]
