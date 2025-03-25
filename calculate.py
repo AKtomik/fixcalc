@@ -19,8 +19,14 @@ Sett.set_derivate_by("xyztXYZT")
 print(calcul("X*(X+1)*(X-49)"))
 print(calcul("(X+1)*(X-49)"))
 print(calcul("(X^2-48X-49)*X"))
-print(calcul("(X+1)(X-49)(X+4012)"))
+print(calcul("(X+1)(X-49)(A+4012)"))
+
+print(derive("X*(X+1)*(X-49)"))
+print(derive("(X+1)(X-49)(A+4012)"))
+
+print(derive("13aX"))
 print(derive(derive("13aX")))
+print(derive(derive("XXXXXXXXX")))
 
 
 
