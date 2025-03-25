@@ -161,8 +161,8 @@ class UnitResultElement:
 
 	def __init__(self, amount, units : dict = {}):
 		# check : has to be Sett.result_type_class
-		if (not (amount is Sett.result_type_class)):
-			raise TypeError()
+		if (not (type(amount) is Sett.result_type_class)):
+			raise TypeError(f"amount must be type {Sett.result_type_class} but is {type(amount)}")
 		# init
 		self.amount=amount
 		self.units=units
