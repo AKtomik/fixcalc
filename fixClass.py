@@ -22,6 +22,9 @@ class postFix:
 	
 	def calculate(self) -> float:
 		return calculatePostfixed(self.pile)
+	
+	def derivate(self) -> float:
+		return derivatePostfixed(self.pile)
 
 #converter
 def stringToInfix(string, resultTypeClass):
@@ -189,3 +192,33 @@ def calculatePostfixed(postfix):
 		else:
 			cache.empiler(op)
 	return cache.depiler()
+
+
+#computer
+def derivatePostfixed(postfix):
+	result=calculatePostfixed(postfix)
+	result.derivate()
+	return result
+
+	"""
+	#print("postfix=",postfix)
+	cache=Pile()
+	while not postfix.est_vide():
+		op=postfix.depiler()
+		typeof=type(op)
+		if (typeof==str):
+			last_2=cache.depiler()
+			last_1=cache.depiler()
+			operatorHere=operators.get(op)
+			if (operatorHere==None):
+				raise Exception(f"opération [{op}] inconnue")
+			else:
+				cache.empiler(operatorHere.operate(last_1,last_2))
+		#elif (typeof==int or typeof==float):
+		#	cache.empiler(op)
+		#else:
+		#	raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
+		else:
+			cache.empiler([op, op.derivate])
+	return cache.depiler()"
+	"""

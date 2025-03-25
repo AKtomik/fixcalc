@@ -102,21 +102,6 @@ class FractionResult:
 	def is_positive(self):
 		return self.numerator*self.denominator>0
 	
-	def simplify(self):
-
-		a,b=self.numerator, self.denominator
-		if (b>a):
-			a,b=b,a
-		#print("simplify:",a,b)
-		david=pgcd(a,b)
-		self.numerator=int(self.numerator//david)
-		self.denominator=int(self.denominator//david)
-
-		#print("1)", self.numerator,"/",self.denominator)
-		if (self.denominator<0):
-			self.numerator=self.numerator*-1
-			self.denominator=self.denominator*-1
-		#print("2)", self.numerator,"/",self.denominator)
 	
 	def __add__(self, other):
 		return FractionResult(self.numerator*other.denominator+other.numerator*self.denominator, other.denominator*self.denominator)
@@ -131,8 +116,8 @@ class FractionResult:
 		return FractionResult(self.numerator*other.denominator, self.denominator*other.numerator)
 
 	def __pow__(self, other):
-		if (not other.denominator.is_one()):
-			raise ValueError("cant do squareroot with fraction")
+		if (not other.denominator==1):
+			raise ValueError("decomal power : cant do root with fraction (yet)")
 		return FractionResult(self.numerator**other.numerator, self.denominator**other.numerator)
 	
 	def __str__(self):
@@ -144,6 +129,21 @@ class FractionResult:
 			sign="-"
 		return sign+"("+str(abs(self.numerator)) +"/"+ str(self.denominator)+")"
 
+	#mutate
+	def simplify(self):
+		a,b=self.numerator, self.denominator
+		if (b>a):
+			a,b=b,a
+		#print("simplify:",a,b)
+		david=pgcd(a,b)
+		self.numerator=int(self.numerator//david)
+		self.denominator=int(self.denominator//david)
+
+		#print("1)", self.numerator,"/",self.denominator)
+		if (self.denominator<0):
+			self.numerator=self.numerator*-1
+			self.denominator=self.denominator*-1
+		#print("2)", self.numerator,"/",self.denominator)
 
 
 
@@ -235,6 +235,34 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 				for digit in pow:
 					r+=digits_to_pow[digit]
 		return r
+	
+	#mutate
+	def derivate(self):
+		deriv_count=0
+		for k in self.units.keys():
+			if (k in UnitsResult.result_derivate_by):
+				deriv_count+=1
+				#derivate unit 
+				# ==
+				self.amount*=self.units[k]
+				self.units[k]-=1
+				# ==
+		self.simplify()
+
+		if (deriv_count==0):
+			self.amount=0
+			self.units={}
+			return
+		
+	def simplify(self):
+		todel=[]
+		for k in self.units.keys():
+				if (float(self.units[k])==int(self.units[k])):
+					self.units[k]=int(self.units[k])
+				if (self.units[k]==0):
+					todel.append(k)
+		for k in todel:
+			del self.units[k]
 
 digits_to_pow = {
 	"0":"⁰",
@@ -253,9 +281,14 @@ digits_to_pow = {
 
 class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
 	
+	#static
 	result_unit_base_class = FractionResult
 	def set_unit_base_class(className):
 		UnitsResult.result_unit_base_class = className
+		
+	result_derivate_by = "xyztXYZT"
+	def set_derivate_by(all_units_str):
+		UnitsResult.result_derivate_by  = all_units_str
 
 	def __init__(self, composes : list = []):
 		self.compose=composes
@@ -304,7 +337,7 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 		new_one.compose=[]#idk why but this is NEEDED. else this is static.
 		for i in range(len(self.compose)):
 			element_self=self.compose[i]
-			for j in range(i, len(other.compose)):
+			for j in range(len(other.compose)):
 				element_other=other.compose[j]
 				result=element_self*element_other
 				new_one.add_element(result)
@@ -334,6 +367,19 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 	
 	def __str__(self):
 		r=""
+		self.simplify()
 		for element in self.compose:
 			r+=str(element)
 		return '['+r.lstrip('+')+']'
+	
+	#mutate
+	def derivate(self):
+		for element in self.compose:
+			element.derivate()
+		self.simplify()
+	
+	def simplify(self):
+		for element in self.compose:
+			if (element.amount==0):
+				self.compose.remove(element)
+			element.simplify()

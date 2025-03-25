@@ -43,15 +43,15 @@ operators = {
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 }
-#derivatives = {
-#    '+': lambda a, b : 
-#    '-': lambda a, b : 
-#    '*': lambda a, b : 
-#    '/': lambda a, b : 
-#    '^': lambda a, b : 
-#    '(': lambda a, b : 
-#    ')': lambda a, b : 
-#}
+derivatives = {
+    '+': lambda a, b, da, db : a+b,
+    '-': lambda a, b, da, db : a-b,
+    '*': lambda a, b, da, db : da*b+db*a,
+    '/': lambda a, b, da, db : (da*b-db*a)/(b)**2
+    #'^': lambda a, b : 
+    #'(': lambda a, b : 
+    #')': lambda a, b : 
+}
 derivatives_string = {
     "constant": "0",
 	"x": "1",
