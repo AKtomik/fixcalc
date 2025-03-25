@@ -127,6 +127,14 @@
             background-color: #005bb5;
         }
 
+        /* Info message styling */
+        .info-message {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
         /* Responsive styling */
         @media (max-width: 600px) {
             body {
@@ -150,7 +158,8 @@
 <body>
     <h1>Flask Calculator</h1>
     <form action="/derivativescalculate" method="post">
-        <input type="text" name="expression" placeholder="Enter expression" required>
+        <input type="text" name="expression" placeholder="Enter expression (e.g., derivative w.r.t x, y, z, t)" required>
+        <p class="info-message">Note: The derivative will be calculated with respect to x, y, z, and t.</p>
 
         <button type="submit">Calculate</button>
     </form>
@@ -162,4 +171,4 @@
     {% endif %}
     <a href="https://github.com/AKtomik/fixcalc" class="github-btn" target="_blank">Visit on GitHub</a>
 </body>
-</html> 
+</html>
