@@ -1,6 +1,6 @@
-from operators import operators
+from operators import operators, derivates
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
-from resluts import RoundResult, UnitsResult
+from resluts import Sett, RoundResult, UnitsResult
 
 
 from dep.pile import Pile
@@ -12,8 +12,11 @@ class postFix:
 		if (ifUseUnits):
 			if (resultTypeClass==UnitsResult):
 				raise TypeError("UnitsResult inside UnitsResult (UnitsResultception)")
-			UnitsResult.set_unit_base_class(resultTypeClass)
+			Sett.set_unit_base_class(resultTypeClass)
 			resultTypeClass=UnitsResult
+		else:
+			Sett.set_unit_base_class(resultTypeClass)
+		Sett.set_type_class(resultTypeClass)
 		
 		if (expressionString):
 			self.pile=infixToPostfix(stringToInfix(expressionString, resultTypeClass))
@@ -196,29 +199,28 @@ def calculatePostfixed(postfix):
 
 #computer
 def derivatePostfixed(postfix):
-	result=calculatePostfixed(postfix)
-	result.derivate()
-	return result
+	#result=calculatePostfixed(postfix)
+	#result.derivate()
+	#return result
 
-	"""
 	#print("postfix=",postfix)
-	cache=Pile()
+	cache=Pile()#pile of tuple (normal, derivate)
 	while not postfix.est_vide():
 		op=postfix.depiler()
 		typeof=type(op)
 		if (typeof==str):
 			last_2=cache.depiler()
 			last_1=cache.depiler()
-			operatorHere=operators.get(op)
-			if (operatorHere==None):
+			operatorVanilla=operators.get(op)
+			operatorDerivate=derivates.get(op)
+			if (operatorVanilla==None or operatorDerivate==None):
 				raise Exception(f"opération [{op}] inconnue")
 			else:
-				cache.empiler(operatorHere.operate(last_1,last_2))
-		#elif (typeof==int or typeof==float):
-		#	cache.empiler(op)
-		#else:
-		#	raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
+				print("depiled both:", last_1[0], last_2[0], last_1[1], last_2[1])
+				cache.empiler([operatorVanilla.operate(last_1[0], last_2[0]), operatorDerivate.derivate(last_1[0], last_2[0], last_1[1], last_2[1])])
+
 		else:
-			cache.empiler([op, op.derivate])
-	return cache.depiler()"
-	"""
+			result=[op, op.copy().derivate()]
+			print("repiled both:", result[0], result[1])
+			cache.empiler(result)
+	return cache.depiler()[1]

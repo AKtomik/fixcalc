@@ -19,6 +19,9 @@ class Operator:
 	
 	def operate(self, a, b):
 		return self.action(a,b)
+    
+	def derivate(self, a, b, da, db):
+		return self.action(a, b, da, db)
 	
 	def get_strength(self):
 		"""
@@ -43,11 +46,11 @@ operators = {
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 }
-derivatives = {
-    '+': lambda a, b, da, db : a+b,
-    '-': lambda a, b, da, db : a-b,
-    '*': lambda a, b, da, db : da*b+db*a,
-    '/': lambda a, b, da, db : (da*b-db*a)/(b)**2
+derivates = {
+    '+': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da+db),
+    '-': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da-db),
+    '*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da*b+db*a),
+    '/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : (da*b-db*a)/(b)**2),
     #'^': lambda a, b : 
     #'(': lambda a, b : 
     #')': lambda a, b : 
