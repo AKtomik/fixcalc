@@ -1,4 +1,4 @@
-### scolaire
+## scolaire
 projet de groupe : Tom et Evann
 utiliser la programation orientée objet et le format infixe pour effectuer des opérations mathématiques.
 Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
@@ -6,7 +6,24 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - Flask : Routes / pour le formulaire et /calculate pour le calcul.
 - Gestion de la requête POST pour traiter l'expression.
 
-### réalisation
+## instalation
+1) Cloner le dépot avec `git clone https://github.com/AKtomik/fixcalc`
+2) Installer et configurer python >3.10.
+
+pour l'interface web :
+
+3) Installer [Flask](https://flask.palletsprojects.com/en/stable/installation/).
+4) Nous envoyer 3 bitcoins
+5) Exécuter [index.py](./index.py)
+6) S'amuser à dériver et calculer !
+  
+pour l'interface python :
+
+1) En haut de votre fichier `from fixcalc import *`
+2) (avancé) Definir des paramètres avec classe `Sett`
+3) Utiliser `calcul(str)->Result` et `derive(str)->Result` pour effectuer des operations.
+
+## réalisation
 - [x] conversions infixe/postfixe
 - [x] calcul d'expression numériques
 - [x] frontend
@@ -22,5 +39,5 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - [ ] fractions avec plusieurs unitées au dénominateur
 - [ ] affichage des racines
 
-### url 
+## url 
 https://nsi.t-lab.ovh

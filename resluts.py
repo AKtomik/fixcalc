@@ -1,4 +1,4 @@
-#from math import pgcd
+# in this file : Differents Results class. Basicily the class that store the result.
 
 def pgcd(greater, lesser):
 	if (greater%lesser==0):
@@ -155,11 +155,16 @@ class FractionResult(Result):
 
 
 
-class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72xy")
-	#have to be used only on 
+# pair up an amount and units. (eg: "1", "2x", "4xx", "72xy")
+class UnitResultElement:
+	# have to be used only by UnitsResult
 
 	def __init__(self, amount, units : dict = {}):
-		self.amount=amount#has to be Sett.result_type_class
+		# check : has to be Sett.result_type_class
+		if (not (amount is Sett.result_type_class)):
+			raise TypeError()
+		# init
+		self.amount=amount
 		self.units=units
 	
 	def copy(self):
@@ -187,7 +192,7 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 		return self
 	
 	#operation
-	#operation are between element, and used by ONLY UnitsReslut
+	# here operation are between element, and used by ONLY UnitsReslut
 	def __mul__(self, other):
 		result=self.copy()
 		result.amount*=other.amount
@@ -219,7 +224,6 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 
 	#print
 	def __str__(self):
-	#def printable(self):
 		r=""
 		#show_amount=True
 		show_amount=not (self.amount.is_one() and self.units!={})
@@ -243,8 +247,8 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 					r+=digits_to_pow[digit]
 		return r
 	
-	#operate
-	def derivate(self):#not mutable
+	#mutate
+	def derivate(self):#mutable
 		deriv_count=0
 		for k in self.units.keys():
 			if (k in Sett.result_derivate_by):
@@ -287,7 +291,8 @@ digits_to_pow = {
 	".":"˙",
 }
 
-class UnitsResult(Result):#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
+#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
+class UnitsResult(Result):
 
 	def __init__(self, composes : list = []):
 		self.compose=composes
@@ -376,7 +381,7 @@ class UnitsResult(Result):#pair up multiples amount and units. (eg: ["1", "2x", 
 			r+=str(element)
 		return '['+r.lstrip('+')+']'
 	
-	#operate
+	#mutate
 	def derivate(self):#mutable
 		for element in self.compose:
 			element.derivate()

@@ -1,3 +1,5 @@
+# in this file : Some enum-like used.
+
 from enum import Enum
 
 valid_numbers="1234567890.,"
@@ -30,3 +32,51 @@ class MemberType(Enum):
 #	def __init__(self, memberType, value):
 #		self.type=memberType
 #		self.value=value
+
+
+replace_shortcuts = {
+    #syntax
+# "from": "to",
+    #shortcut
+    "**": "^",
+    #constants
+    "e": "2.71828182845904523536",
+    "E": "2.71828182845904523536",
+    "π": "3.14159265358979323846",
+    "PI": "3.14159265358979323846",
+    "pi": "3.14159265358979323846",
+    "pI": "3.14159265358979323846",
+    "Pi": "3.14159265358979323846",
+    "SIPI": "3",
+    "sipi": "3",
+    "sie": "3",
+    "SIE": "3",
+    #letters
+    "zero":"0",
+    "one":"1",
+    "two":"2",
+    "three":"3",
+    "four":"4",
+    "five":"5",
+    "six":"6",
+    "seven":"7",
+    "eigth":"8",
+    "nine":"9",
+    "ten":"10",
+}
+
+
+pow_to_digits = {
+	"⁰":"0",
+	"¹":"1",
+	"²":"2",
+	"³":"3",
+	"⁴":"4",
+	"⁵":"5",
+	"⁶":"6",
+	"⁷":"7",
+	"⁸":"8",
+	"⁹":"9",
+	"⁻":"-",
+	"˙":".",
+}

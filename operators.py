@@ -1,3 +1,4 @@
+# in this file : Differents operators and Operator class. Interactions between result.
 from enum import Enum
 from resluts import Sett
 
