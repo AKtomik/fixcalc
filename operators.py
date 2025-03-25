@@ -1,4 +1,5 @@
 from enum import Enum
+from resluts import Sett
 
 class OperatorType(Enum):
 
@@ -50,11 +51,13 @@ derivates = {
     '+': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da+db),
     '-': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da-db),
     '*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da*b+db*a),
-    '/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : (da*b-db*a)/(b)**2),
-    #'^': lambda a, b : 
+    '/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : (da*b-db*a)/(b)**Sett.result_build_class.create_from_float(2)),
+    '^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : b*(a**(b - Sett.result_build_class.create_from_float(1)))*da)
     #'(': lambda a, b : 
     #')': lambda a, b : 
 }
+
+
 derivatives_string = {
     "constant": "0",
 	"x": "1",

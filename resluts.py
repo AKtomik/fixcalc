@@ -133,6 +133,9 @@ class FractionResult:
 
 	#mutate
 	def simplify(self):
+		if (self.numerator==0):
+			self.denominator=1
+			return
 		a,b=self.numerator, self.denominator
 		if (b>a):
 			a,b=b,a
@@ -320,14 +323,16 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 	
 	#operations
 	def __add__(self, other):
+		new=self.copy()
 		for other_element in other.compose:
-			self.add_element(other_element)
-		return self
+			new.add_element(other_element)
+		return new
 	
 	def __sub__(self, other):
+		new=self.copy()
 		for other_element in other.compose:
-			self.add_element(-other_element)
-		return self
+			new.add_element(-other_element)
+		return new
 		
 	def __mul__(self, other):
 		new_one=UnitsResult()
@@ -392,13 +397,18 @@ class Sett:
 	def set_type_class(className):
 		Sett.result_type_class = className
 
-	#result_unit_base_class = FractionResult
-	#def set_unit_base_class(className):
+	result_build_class=UnitsResult
+	#def set_build_class(className):
 	#	Sett.result_type_class = className
 		
 	result_use_unit = True
 	def set_use_unit(yesOrNo):
 		Sett.result_use_unit = yesOrNo
+		if (yesOrNo):
+			Sett.result_build_class=UnitsResult
+		else:
+			Sett.result_build_class=Sett.result_type_class
+			
 
 	result_derivate_by = "xyztXYZT"
 	def set_derivate_by(all_units_str):

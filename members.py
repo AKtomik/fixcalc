@@ -4,7 +4,6 @@ valid_numbers="1234567890.,"
 valid_operators="+-*/^"
 valid_parentheses="()"
 parentheses_closing=")"
-#valid_variable="XYZ"
 valid_none="_ "
 
 

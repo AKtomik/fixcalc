@@ -33,9 +33,9 @@ class postFix:
 #converter
 def stringToInfix(string):
 
-	resultTypeClass=Sett.result_type_class
-	if (Sett.result_use_unit):
-		resultTypeClass=UnitsResult
+	resultTypeClass=Sett.result_build_class
+	#if (Sett.result_use_unit):
+	#	resultTypeClass=UnitsResult
 
 	infix=Pile()
 	
