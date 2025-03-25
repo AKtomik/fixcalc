@@ -28,7 +28,21 @@ class RoundResult:
 		
 	def create_from_string(the_string):
 		return RoundResult(float(the_string))
+
+	def to_float(self):
+		if (int(self.float)==self.float):
+			return int(self.float)
+		return self.float
 	
+	def is_one(self):
+		return self.float==1
+
+	def is_zero(self):
+		return self.float==0
+	
+	def is_positive(self):
+		return self.float>0
+
 	def __add__(self, other):
 		self.float=self.float+other.float
 		return self
@@ -45,8 +59,12 @@ class RoundResult:
 		self.float=self.float/other.float
 		return self
 	
+	def __pow__(self, other):
+		self.float=self.float**other.float
+		return self
+	
 	def __str__(self):
-		return str(self.float)
+		return str(self.to_float())
 		
 
 class FractionResult:
@@ -70,6 +88,10 @@ class FractionResult:
 		else:
 			denom=1
 		return FractionResult(int(the_string.replace(".","")), denom)
+	
+	def to_float(self):
+		return self.numerator/self.denominator
+	
 
 	def is_one(self):
 		return self.numerator==1 and self.denominator==1
@@ -107,6 +129,11 @@ class FractionResult:
 		
 	def __truediv__(self, other):
 		return FractionResult(self.numerator*other.denominator, self.denominator*other.numerator)
+
+	def __pow__(self, other):
+		if (not other.denominator.is_one()):
+			raise ValueError("cant do squareroot with fraction")
+		return FractionResult(self.numerator**other.numerator, self.denominator**other.numerator)
 	
 	def __str__(self):
 		self.simplify()
@@ -118,45 +145,6 @@ class FractionResult:
 		return sign+"("+str(abs(self.numerator)) +"/"+ str(self.denominator)+")"
 
 
-class RoundResult:
-
-	def __init__(self, floater : float):
-		self.float : float=floater
-	
-	def create_from_float(from_float):
-		return RoundResult(from_float)
-		
-	def create_from_string(the_string):
-		return RoundResult(float(the_string))
-	
-	def is_one(self):
-		return self.float==1
-
-	def is_zero(self):
-		return self.float==0
-	
-	def is_positive(self):
-		return self.float>0
-	
-	def __add__(self, other):
-		self.float=self.float+other.float
-		return self
-		
-	def __sub__(self, other):
-		self.float=self.float-other.float
-		return self
-
-	def __mul__(self, other):
-		self.float=self.float*other.float
-		return self
-		
-	def __truediv__(self, other):
-		self.float=self.float/other.float
-		return self
-	
-	def __str__(self):
-		return str(self.float)
-		
 
 
 
@@ -212,6 +200,15 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 				existing_pow=0
 			result.units[k]=existing_pow-other.units[k]
 		return result
+	
+	def __pow__(self, other):
+		result=self.copy()
+		result.amount=result.amount**other.amount
+		if (not other.units=={}):
+			raise ValueError("cant do power with units (yet)")
+		for k in self.units.keys():
+			result.units[k]=result.units[k]*other.amount.to_float()
+		return result
 
 	#print
 	def __str__(self):
@@ -251,6 +248,7 @@ digits_to_pow = {
 	"8":"⁸",
 	"9":"⁹",
 	"-":"⁻",
+	".":"˙",
 }
 
 class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
@@ -320,6 +318,17 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 		element_other=other.compose[0]
 		for element_self in self.compose:
 			result=element_self/element_other
+			new_one.add_element(result)
+		return new_one
+	
+	def __pow__(self, other):
+		new_one=UnitsResult()
+		new_one.compose=[]#idk why but this is NEEDED. else this is static.
+		if (len(other.compose)>1):
+			raise ValueError("cant power with more than one term (yet)")
+		element_other=other.compose[0]
+		for element_self in self.compose:
+			result=element_self**element_other
 			new_one.add_element(result)
 		return new_one
 	
