@@ -18,6 +18,8 @@ def clean_mantissa_string(string):
 	return int(string)
 
 
+
+
 class RoundResult:
 
 	def __init__(self, floater : float):
@@ -152,7 +154,7 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 	#have to be used only on 
 
 	def __init__(self, amount, units : dict = {}):
-		self.amount=amount#has to be UnitsResult.result_unit_base_class
+		self.amount=amount#has to be Sett.result_unit_base_class
 		self.units=units
 	
 	def copy(self):
@@ -169,14 +171,14 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 		return True
 	
 	def create_from_float(from_float):
-		return UnitResultElement(UnitsResult.result_unit_base_class.create_from_float(from_float))
+		return UnitResultElement(Sett.result_unit_base_class.create_from_float(from_float))
 		
 	def create_from_string(the_string):
-		return UnitResultElement(UnitsResult.result_unit_base_class.create_from_string(the_string))
+		return UnitResultElement(Sett.result_unit_base_class.create_from_string(the_string))
 	
 	#mutate
 	def __neg__(self):
-		self.amount*=UnitsResult.result_unit_base_class(-1)
+		self.amount*=Sett.result_unit_base_class(-1)
 		return self
 	
 	#operation
@@ -236,15 +238,15 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 					r+=digits_to_pow[digit]
 		return r
 	
-	#mutate
-	def derivate(self):
+	#operate
+	def derivate(self):#not mutable
 		deriv_count=0
 		for k in self.units.keys():
-			if (k in UnitsResult.result_derivate_by):
+			if (k in Sett.result_derivate_by):
 				deriv_count+=1
 				#derivate unit 
 				# ==
-				self.amount*=self.units[k]
+				self.amount*=Sett.result_unit_base_class.create_from_float(self.units[k])#toedit
 				self.units[k]-=1
 				# ==
 		self.simplify()
@@ -252,9 +254,9 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 		if (deriv_count==0):
 			self.amount=0
 			self.units={}
-			return
+		return self
 		
-	def simplify(self):
+	def simplify(self):#mutable
 		todel=[]
 		for k in self.units.keys():
 				if (float(self.units[k])==int(self.units[k])):
@@ -263,6 +265,7 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 					todel.append(k)
 		for k in todel:
 			del self.units[k]
+		return self
 
 digits_to_pow = {
 	"0":"⁰",
@@ -280,30 +283,24 @@ digits_to_pow = {
 }
 
 class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
-	
-	#static
-	result_unit_base_class = FractionResult
-	def set_unit_base_class(className):
-		UnitsResult.result_unit_base_class = className
-		
-	result_derivate_by = "xyztXYZT"
-	def set_derivate_by(all_units_str):
-		UnitsResult.result_derivate_by  = all_units_str
 
 	def __init__(self, composes : list = []):
 		self.compose=composes
 	
-	#def copy(self):
-	#	return U
+	def copy(self):
+		new_compose=[]
+		for element in self.compose:
+			new_compose.append(element.copy())
+		return UnitsResult(new_compose)
 	
 	def create_from_float(from_float):
-		return UnitsResult([UnitResultElement(UnitsResult.result_unit_base_class.create_from_float(from_float))])
+		return UnitsResult([UnitResultElement(Sett.result_unit_base_class.create_from_float(from_float))])
 		
 	def create_from_string(the_string):
-		return UnitsResult([UnitResultElement(UnitsResult.result_unit_base_class.create_from_string(the_string))])
+		return UnitsResult([UnitResultElement(Sett.result_unit_base_class.create_from_string(the_string))])
 	
 	def create_as_unit(the_string):
-		return UnitsResult([UnitResultElement(UnitsResult.result_unit_base_class.create_from_float(1), {the_string: 1})])
+		return UnitsResult([UnitResultElement(Sett.result_unit_base_class.create_from_float(1), {the_string: 1})])
 	
 	#usefull
 	def add_element(self, added_element):#mutate
@@ -372,14 +369,37 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 			r+=str(element)
 		return '['+r.lstrip('+')+']'
 	
-	#mutate
-	def derivate(self):
+	#operate
+	def derivate(self):#mutable
 		for element in self.compose:
 			element.derivate()
 		self.simplify()
+		return self
 	
-	def simplify(self):
+	def simplify(self):#mutable
 		for element in self.compose:
 			if (element.amount==0):
 				self.compose.remove(element)
 			element.simplify()
+		return self
+	
+
+
+class Sett:
+	#static
+
+	result_type_class = UnitsResult
+	def set_type_class(className):
+		Sett.result_type_class = className
+
+	result_unit_base_class = FractionResult
+	def set_unit_base_class(className):
+		Sett.result_unit_base_class = className
+		
+	result_use_unit = True
+	def set_use_unit(yesOrNo):
+		Sett.result_use_unit = yesOrNo
+
+	result_derivate_by = "xyztXYZT"
+	def set_derivate_by(all_units_str):
+		Sett.result_derivate_by  = all_units_str

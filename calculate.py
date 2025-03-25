@@ -31,8 +31,9 @@ def derive(string, resultTypeClass=RoundResult):
 print(calcul("X*(X+1)*(X-49)", FractionResult))
 print(calcul("(X+1)*(X-49)", FractionResult))
 print(calcul("(X^2-48X-49)*X", FractionResult))
-#print(calcul("(X+1)(X-49)(X+4012)", FractionResult))
-#print(derive("(X+1)(X-49)(X+4012)", FractionResult))
+print(calcul("(X+1)(X-49)(X+4012)", FractionResult))
+print(derive(derive("13aX")))
+#print(derive(derive("13aX")))
 
 
 #print(calcul("(33*9)/(11*28)+1", RoundResult))
