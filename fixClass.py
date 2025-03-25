@@ -66,7 +66,7 @@ def stringToInfix(string, resultTypeClass):
 				
 			closing=(char in parentheses_closing)
 			#smart multiplication
-			if (not closing and (last_was==MemberType.NUMBER_FLOAT or last_was==MemberType.UNIT)):
+			if ((last_closing and last_was==MemberType.PARENTHESE) or not closing and (last_was==MemberType.NUMBER_FLOAT or last_was==MemberType.UNIT)):
 				infix.empiler('*')
 			last_was=MemberType.PARENTHESE
 			last_closing=(closing)
