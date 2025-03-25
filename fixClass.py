@@ -1,7 +1,7 @@
 from operators import operators, derivates
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
-from resluts import Sett, RoundResult, UnitsResult
-
+from resluts import Sett
+from replace import string_human_shortcut
 
 from dep.pile import Pile
 from dep.file import File
@@ -18,6 +18,8 @@ class postFix:
 		#else:
 		#	Sett.set_unit_base_class(resultTypeClass)
 		#Sett.set_type_class(resultTypeClass)
+		
+		expressionString=string_human_shortcut(expressionString)
 		
 		if (expressionString):
 			self.pile=infixToPostfix(stringToInfix(expressionString))
