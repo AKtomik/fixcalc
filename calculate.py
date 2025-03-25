@@ -1,12 +1,29 @@
 from fixClass import postFix
-from resluts import FractionResult, RoundResult, UnitsResult
+from resluts import Sett, FractionResult, RoundResult
 
 
-def calcul(string, resultTypeClass=RoundResult):
-    return f"{postFix(string, resultTypeClass, True).calculate()}"
+def calcul(string):
+    return f"{postFix(string).calculate()}"
 
-def derive(string, resultTypeClass=RoundResult):
-    return f"{postFix(string, resultTypeClass, True).derivate()}"
+def derive(string):
+    return f"{postFix(string).derivate()}"
+
+
+# type of result computer used. FractionResult or RoundResult are valid.
+Sett.set_type_class(FractionResult)
+# is OBLIGATORY for derivate and use variables (like x or y)
+Sett.set_use_unit(True)
+# by what is it derivated. Generally "xXyYtT" and/or others. 
+Sett.set_derivate_by("xyztXYZT")
+
+print(calcul("X*(X+1)*(X-49)"))
+print(calcul("(X+1)*(X-49)"))
+print(calcul("(X^2-48X-49)*X"))
+print(calcul("(X+1)(X-49)(X+4012)"))
+print(derive(derive("13aX")))
+
+
+
 #t=calcul("(33*9)/(11*27)+1")
 
 #print(UnitsResult.create_as_unit("x")+UnitsResult.create_as_unit("y"))
@@ -27,12 +44,6 @@ def derive(string, resultTypeClass=RoundResult):
 #print(calcul("(xvzezx)^2^2.1", RoundResult))
 #print(calcul("(18abcd-4bbbd-bbdd-4accc+aadd)/(aaaa)", FractionResult))
 
-
-print(calcul("X*(X+1)*(X-49)", FractionResult))
-print(calcul("(X+1)*(X-49)", FractionResult))
-print(calcul("(X^2-48X-49)*X", FractionResult))
-print(calcul("(X+1)(X-49)(X+4012)", FractionResult))
-print(derive(derive("13aX")))
 #print(derive(derive("13aX")))
 
 

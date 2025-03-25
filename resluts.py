@@ -154,7 +154,7 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 	#have to be used only on 
 
 	def __init__(self, amount, units : dict = {}):
-		self.amount=amount#has to be Sett.result_unit_base_class
+		self.amount=amount#has to be Sett.result_type_class
 		self.units=units
 	
 	def copy(self):
@@ -171,14 +171,14 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 		return True
 	
 	def create_from_float(from_float):
-		return UnitResultElement(Sett.result_unit_base_class.create_from_float(from_float))
+		return UnitResultElement(Sett.result_type_class.create_from_float(from_float))
 		
 	def create_from_string(the_string):
-		return UnitResultElement(Sett.result_unit_base_class.create_from_string(the_string))
+		return UnitResultElement(Sett.result_type_class.create_from_string(the_string))
 	
 	#mutate
 	def __neg__(self):
-		self.amount*=Sett.result_unit_base_class(-1)
+		self.amount*=Sett.result_type_class(-1)
 		return self
 	
 	#operation
@@ -246,7 +246,7 @@ class UnitResultElement:#pair up an amount and units. (eg: "1", "2x", "4xx", "72
 				deriv_count+=1
 				#derivate unit 
 				# ==
-				self.amount*=Sett.result_unit_base_class.create_from_float(self.units[k])#toedit
+				self.amount*=Sett.result_type_class.create_from_float(self.units[k])#toedit
 				self.units[k]-=1
 				# ==
 		self.simplify()
@@ -294,13 +294,13 @@ class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], 
 		return UnitsResult(new_compose)
 	
 	def create_from_float(from_float):
-		return UnitsResult([UnitResultElement(Sett.result_unit_base_class.create_from_float(from_float))])
+		return UnitsResult([UnitResultElement(Sett.result_type_class.create_from_float(from_float))])
 		
 	def create_from_string(the_string):
-		return UnitsResult([UnitResultElement(Sett.result_unit_base_class.create_from_string(the_string))])
+		return UnitsResult([UnitResultElement(Sett.result_type_class.create_from_string(the_string))])
 	
 	def create_as_unit(the_string):
-		return UnitsResult([UnitResultElement(Sett.result_unit_base_class.create_from_float(1), {the_string: 1})])
+		return UnitsResult([UnitResultElement(Sett.result_type_class.create_from_float(1), {the_string: 1})])
 	
 	#usefull
 	def add_element(self, added_element):#mutate
@@ -392,9 +392,9 @@ class Sett:
 	def set_type_class(className):
 		Sett.result_type_class = className
 
-	result_unit_base_class = FractionResult
-	def set_unit_base_class(className):
-		Sett.result_unit_base_class = className
+	#result_unit_base_class = FractionResult
+	#def set_unit_base_class(className):
+	#	Sett.result_type_class = className
 		
 	result_use_unit = True
 	def set_use_unit(yesOrNo):
