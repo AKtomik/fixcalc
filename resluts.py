@@ -377,9 +377,11 @@ class UnitsResult(Result):
 	def __str__(self):
 		r=""
 		self.simplify()
+		if len(self.compose)==0:
+			return '0'
 		for element in self.compose:
 			r+=str(element)
-		return '['+r.lstrip('+')+']'
+		return r.lstrip('+')
 	
 	#mutate
 	def derivate(self):#mutable

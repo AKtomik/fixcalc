@@ -158,10 +158,14 @@
 <body>
     <h1>Flask Calculator</h1>
     <form action="/derivativescalculate" method="post">
-        <input type="text" name="expression" placeholder="Enter expression (e.g., derivative w.r.t x, y, z, t)" required>
-        <p class="info-message">Note: The derivative will be calculated with respect to x, y, z, and t.</p>
-
+        <input type="text" name="expression" placeholder="Enter derivative" required>
+        <input type="checkbox" id="toggleButton" name="v" class="toggle-btn" style="display:none;" checked>
+        <label for="toggleButton" class="toggle-label"></label>
         <button type="submit">Calculate</button>
+        <p class="info-message">Note: The derivative will be calculated with respect to x, y, z, and t.</p>
+    </form>
+    <form action="/calculate" method="post">
+        <button type="submit">back</button>
     </form>
     
     {% if result is not none %}

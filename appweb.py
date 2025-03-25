@@ -6,6 +6,12 @@ from resluts import FractionResult ,RoundResult, Sett
 
 app = Flask(__name__)
 
+def vr(t):
+    if t:
+        return Sett.set_type_class(FractionResult)
+    else :
+        return Sett.set_type_class(RoundResult)
+
 @app.route('/')
 def index():
     return render_template('index.html', result=None, error=None)
@@ -14,19 +20,18 @@ def index():
 def calculate():
     expression = request.form.get('expression')
     v = 'v' in request.form 
-    def vr(t):
-        if t==True :
-            return Sett.set_type_class(FractionResult)
-        else :
-            return  Sett.set_type_class(RoundResult)
     vr(v)
+
+    if (not expression):
+        return render_template('index.html', result=None, error=None)
 
     try:
         result = calcul(expression)
         print(result)
         return render_template('index.html', result=result, error=None)
-    except Exception:
-        return render_template('index.html', result=None, error="Invalid expression")
+    except Exception as e:
+        error_message = str(e) if str(e) else "Invalid expression"
+        return render_template('index.html', result=None, error="error_message")
 
 @app.route('/example', methods=['POST'])
 def example():
@@ -40,6 +45,8 @@ def derivatives():
 @app.route('/derivativescalculate', methods=['POST'])
 def calculate_derivatives():
     expression = request.form.get('expression')
+    v = 'v' in request.form 
+    vr(v)
     variable = request.form.get('variable', 'x')  # Default to 'x' if not provided
     
     # Validate that variable is a single character
@@ -47,10 +54,11 @@ def calculate_derivatives():
         return render_template('derivatives.html', result=None, error="La variable doit être un seul caractère", expression=expression, variable=variable)
     
     try:
+        # Could be added in the future :
+        #Sett.set_use_unit(True)
+        #Sett.set_derivate_by("xyztXYZT")
         # Pass the variable to the derive function
         result = derive(expression)
-        Sett.set_use_unit(True)
-        Sett.set_derivate_by("xyztXYZT")
         return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable)
     except Exception as e:
         error_message = str(e) if str(e) else "Expression invalide"
