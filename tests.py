@@ -1,23 +1,8 @@
-from fixClass import PostFix
-from resluts import Sett, Result, FractionResult, RoundResult
+# in this file : Some tests use and used.
+from fixcalc import *
 
 
-def calcul(expression : str | Result | PostFix) -> PostFix:
-    return PostFix(expression).calculate()
-
-def derive(expression : str | Result | PostFix) -> PostFix:
-    return PostFix(expression).derivate()
-
-
-# type of result computer used. FractionResult or RoundResult are valid.
-Sett.set_type_class(FractionResult)
-# dont change it, is OBLIGATORY for derivate and use variables (like x or y).
-Sett.set_use_unit(True)
-# by what is it derivated. Generally "xXyYtT" and/or others. 
-Sett.set_derivate_by("xyztXYZT")
-
-
-#tests
+# tests
 
 print(calcul("X*(X+1)*(X-49)"))
 print(calcul("(X+1)*(X-49)"))
@@ -31,7 +16,10 @@ print(derive("13aX"))
 print(derive(derive("13aX")))
 print(derive(derive("X^3")))
 print(derive(derive("X^10²")))
+print(derive(derive("X^(10²)")))
+print(derive("X⁹⁸"))
 
+# old tests
 
 
 #t=calcul("(33*9)/(11*27)+1")
@@ -64,3 +52,11 @@ print(derive(derive("X^10²")))
 #print(FractionResult(2,20))
 #print(FractionResult.create_from_float(.5))
 #print(FractionResult.create_from_string(".12"))
+
+#print(calcul("314+1592-6535/8979*32+38"))
+#print(calcul("(33*9)/(11*27)+1"))
+#print(calcul("2-1"))
+#print(calcul("2/3"))
+#print(calcul("3/2"))
+#print(calcul("1+2*3"))
+#print(calcul("1+(2*3)"))

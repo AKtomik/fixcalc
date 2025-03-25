@@ -1,3 +1,5 @@
+# in this file : PostFix class and fix convertions/operations.
+
 from operators import operators, derivates
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
 from resluts import Sett, Result
