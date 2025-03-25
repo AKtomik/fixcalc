@@ -1,20 +1,23 @@
-from fixClass import postFix
-from resluts import Sett, FractionResult, RoundResult
+from fixClass import PostFix
+from resluts import Sett, Result, FractionResult, RoundResult
 
 
-def calcul(string):
-    return f"{postFix(string).calculate()}"
+def calcul(expression : str | Result | PostFix) -> PostFix:
+    return PostFix(expression).calculate()
 
-def derive(string):
-    return f"{postFix(string).derivate()}"
+def derive(expression : str | Result | PostFix) -> PostFix:
+    return PostFix(expression).derivate()
 
 
 # type of result computer used. FractionResult or RoundResult are valid.
 Sett.set_type_class(FractionResult)
-# is OBLIGATORY for derivate and use variables (like x or y)
+# dont change it, is OBLIGATORY for derivate and use variables (like x or y).
 Sett.set_use_unit(True)
 # by what is it derivated. Generally "xXyYtT" and/or others. 
 Sett.set_derivate_by("xyztXYZT")
+
+
+#tests
 
 print(calcul("X*(X+1)*(X-49)"))
 print(calcul("(X+1)*(X-49)"))
@@ -26,8 +29,8 @@ print(derive("(X+1)(X-49)(A+4012)"))
 
 print(derive("13aX"))
 print(derive(derive("13aX")))
-print((derive("X^3")))
-print((derive("X^10²")))
+print(derive(derive("X^3")))
+print(derive(derive("X^10²")))
 
 
 

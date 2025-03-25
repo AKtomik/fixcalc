@@ -17,8 +17,8 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - [x] dériver un résultat
 - [x] opérations sur les dérivées
 - [ ] opérations à entrée unique (log, e)
-- [ ] constantes connues (e, pi)
-- [ ] affichage des problèmes
+- [x] constantes connues (e, pi)
+- [ ] affichage des erreurs de syntaxe
 - [ ] fractions avec plusieurs unitées au dénominateur
 - [ ] affichage des racines
 

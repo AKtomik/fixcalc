@@ -18,9 +18,11 @@ def clean_mantissa_string(string):
 	return int(string)
 
 
+class Result:
+	pass
 
 
-class RoundResult:
+class RoundResult(Result):
 
 	def __init__(self, floater : float):
 		self.float : float=floater
@@ -69,7 +71,7 @@ class RoundResult:
 		return str(self.to_float())
 		
 
-class FractionResult:
+class FractionResult(Result):
 
 	def __init__(self, numerator : int, denominator : int=1):
 		self.numerator : int=numerator
@@ -285,7 +287,7 @@ digits_to_pow = {
 	".":"˙",
 }
 
-class UnitsResult:#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
+class UnitsResult(Result):#pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
 
 	def __init__(self, composes : list = []):
 		self.compose=composes
