@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
-from calculate import calcul  
+from calculate import calcul, derive
 from resluts import FractionResult ,RoundResult, Sett
-from operators import derive
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -46,7 +46,9 @@ def calculate_derivatives():
     
     try:
         # Pass the variable to the derive function
-        result = derive(expression, variable.strip())
+        result = derive(expression)
+        Sett.set_use_unit(True)
+        Sett.set_derivate_by("xyztXYZT")
         return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable)
     except Exception as e:
         error_message = str(e) if str(e) else "Expression invalide"
