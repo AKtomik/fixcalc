@@ -27,7 +27,7 @@ print(derive("(X+1)(X-49)(A+4012)"))
 print(derive("13aX"))
 print(derive(derive("13aX")))
 print((derive("X^3")))
-print((derive("X^10^2")))
+print((derive("X^10²")))
 
 
 
