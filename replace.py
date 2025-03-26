@@ -9,8 +9,8 @@ def string_human_shortcut(string: str):
 	for k in replace_shortcuts.keys():
 		string=string.replace(k, replace_shortcuts[k])
 	if Sett.convert_const:
-		for k in replace_const.keys():
-			string=string.replace(k, replace_const[k])
+		for pair in replace_const:
+			string=string.replace(pair[0], pair[1])
 	for k in replace_writte.keys():
 		string=string.replace(k, replace_writte[k])
 
