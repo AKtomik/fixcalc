@@ -9,7 +9,6 @@ from sys import platform, version
 app = Flask(__name__)
 
 def vr(t):
-    print(t) 
     if t == 'fraction':
         return Sett.set_type_class(FractionResult)
     elif t == 'decimal':

@@ -156,11 +156,11 @@
     <form action="/derivativescalculate" method="post">
         <input type="text" name="expression" placeholder="Enter derivative" required>
         <div class="toggle-group">
-            <input type="radio" id="non" name="v" value="non" checked>
-            <input type="radio" id="decimal" name="v" value="decimal">
-            <input type="radio" id="fraction" name="v" value="fraction">
+            <input type="radio" id="decimal" name="v" value="decimal" checked>
             <label for="decimal" class="toggle-label">décimaux</label>
+            <input type="radio" id="fraction" name="v" value="fraction">
             <label for="fraction" class="toggle-label">fraction</label>
+            <label for="toggleButton" class="toggle-label">décimaux</label>
         </div>
         <button type="submit">Calculate</button>
         <p class="info-message">Note: The derivative will be calculated with respect to x, y, z, and t.</p>
