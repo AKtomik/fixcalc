@@ -1,6 +1,14 @@
-## scolaire
+## Scolaire
 projet de groupe : Tom et Evann
-utiliser la programation orientée objet et le format infixe pour effectuer des opérations mathématiques.
+### Une logique objet !
+La chaine de caractère subit plusieurs conversions pour être correctement calculée.
+
+str → infix → postfix → Result → str
+- Transformation en infixe → reconnaitre les nombres et sépare les éléments.
+- Conversion en postfixe → ordonner les oppérateurs en suivant la logique humaine.
+- Calcul dans l'ordre infixé → itération et calculs en manipulant les classes Résultat et Opérations qui utilisent la surcharge d'opérateurs.
+- Affichage en chaine de caractères → tranformation de l'objet Résultat en quelque chose de lisible.
+### Une interface web !
 Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - Backend : Import de calcul et derive depuis calculate.
 - Flask : Routes / pour le formulaire et /calculate pour le calcul.
@@ -9,16 +17,16 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 ## Utilisation
 Le projet est utilisable ici : https://fixcalc.onrender.com/
 
-## instalation
+## Instalation
 1) Cloner le dépot avec `git clone https://github.com/AKtomik/fixcalc`
 2) Installer et configurer python >3.10.
 
 pour l'interface web :
 
-3) Installer les dépendances avec `pip install -r requirements.txt` (ou manuellement: [Flask](https://flask.palletsprojects.com/en/stable/installation/)).
-4) Nous envoyer 3 bitcoins
-5) Exécuter [index.py](./index.py)
-6) S'amuser à dériver et calculer !
+1) Installer les dépendances avec `pip install -r requirements.txt`
+2) Nous envoyer 3 bitcoins
+3) Exécuter [index.py](./index.py) avec python `python index.py`
+4) S'amuser à dériver et calculer !
   
 pour l'interface python :
 
@@ -42,6 +50,3 @@ pour l'interface python :
 - [ ] affichage des erreurs de syntaxe
 - [ ] fractions avec plusieurs unitées au dénominateur
 - [ ] affichage des racines
-
-## url 
-https://nsi.t-lab.ovh

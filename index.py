@@ -4,6 +4,8 @@ from flask import Flask, request, render_template
 from fixcalc import calcul, derive
 from resluts import FractionResult ,RoundResult, Sett
 
+from sys import platform, version
+
 app = Flask(__name__)
 
 def vr(t):
@@ -65,5 +67,10 @@ def calculate_derivatives():
         return render_template('derivatives.html', result=None, error=error_message, expression=expression, variable=variable)
 
 if __name__ == '__main__':
-    #app.run(debug=True, host="127.0.0.1", port="5000")#localhost
-    app.run(debug=True, host="0.0.0.0", port="12345")#serverhost
+    print(f"launch fixcalc's index from platfrom [{platform}] version [{version}]...")
+    if ('linux' in platform):
+        print("this is a server. launching serverhost...")
+        app.run(debug=True, host="0.0.0.0", port="12345")#serverhost
+    else:
+        print("this is a client. launching localhost...")
+        app.run(debug=True, host="127.0.0.1", port="5000")#localhost
