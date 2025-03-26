@@ -154,12 +154,18 @@
 <body> 
     <h1>Flask Derivative</h1>
     <form action="/derivativescalculate" method="post">
-        <input type="text" name="expression" placeholder="Enter derivative" required>
+        <input type="text" name="expression" placeholder="Enter expression" required>
         <div class="toggle-group">
-            <input type="radio" id="decimal" name="v" value="decimal" checked>
-            <label for="decimal" class="toggle-label">décimaux</label>
-            <input type="radio" id="fraction" name="v" value="fraction">
-            <label for="fraction" class="toggle-label">fraction</label>
+            <input type="radio" id="decimal" name="v" value="decimal" 
+             {% if resulttype=='decimal' %}
+            checked
+        {% endif %}>
+        <label for="decimal" class="toggle-label">décimaux</label>
+        <input type="radio" id="fraction" name="v" value="fraction"
+        {% if resulttype=='fraction' %}
+        checked
+        {% endif %}>
+        <label for="fraction" class="toggle-label">fraction</label>
         </div>
         <button type="submit">Calculate</button>
         <p class="info-message">Note: The derivative will be calculated with respect to x, y, z, and t.</p>

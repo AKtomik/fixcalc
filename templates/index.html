@@ -148,10 +148,16 @@
     <form action="/calculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
         <div class="toggle-group">
-            <input type="radio" id="decimal" name="v" value="decimal" checked>
-            <label for="decimal" class="toggle-label">décimaux</label>
-            <input type="radio" id="fraction" name="v" value="fraction">
-            <label for="fraction" class="toggle-label">fraction</label>
+            <input type="radio" id="decimal" name="v" value="decimal" 
+             {% if resulttype=='decimal' %}
+            checked
+        {% endif %}>
+        <label for="decimal" class="toggle-label">décimaux</label>
+        <input type="radio" id="fraction" name="v" value="fraction"
+        {% if resulttype=='fraction' %}
+        checked
+        {% endif %}>
+        <label for="fraction" class="toggle-label">fraction</label>
         </div>
     
         <button type="submit">Calculate</button>

@@ -7,16 +7,18 @@ from resluts import FractionResult ,RoundResult, Sett
 from sys import platform, version
 
 app = Flask(__name__)
-
+stc = -1
 def vr(t):
     if t == 'fraction':
+        stc = 1
         return Sett.set_type_class(FractionResult)
     elif t == 'decimal':
+        stc = 0
         return Sett.set_type_class(RoundResult)
 
 @app.route('/')
 def index():
-    return render_template('index.html', result=None, error=None)
+    return render_template('index.html', result=None, error=None,)
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
@@ -25,15 +27,15 @@ def calculate():
     vr(v)
 
     if (not expression):
-        return render_template('index.html', result=None, error=None)
+        return render_template('index.html', cbouton = stc, result=None, error=None)
 
     try:
         result = calcul(expression)
         print(result)
-        return render_template('index.html', result=result, error=None)
+        return render_template('index.html', result=result, error=None, resulttype=v)
     except Exception as e:
         error_message = str(e) if str(e) else "Invalid expression"
-        return render_template('index.html', result=None, error=error_message)
+        return render_template('index.html', result=None, error=error_message, resulttype=v )
 
 @app.route('/example', methods=['POST'])
 def example():
@@ -53,7 +55,7 @@ def calculate_derivatives():
     
     # Validate that variable is a single character
     if len(variable.strip()) != 1:
-        return render_template('derivatives.html', result=None, error="La variable doit être un seul caractère", expression=expression, variable=variable)
+        return render_template('derivatives.html', result=None, error="La variable doit être un seul caractère", expression=expression, variable=variable, resulttype=v)
     
     try:
         # Could be added in the future :
@@ -61,10 +63,10 @@ def calculate_derivatives():
         #Sett.set_derivate_by("xyztXYZT")
         # Pass the variable to the derive function
         result = derive(expression)
-        return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable)
+        return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable, resulttype=v)
     except Exception as e:
         error_message = str(e) if str(e) else "Expression invalide"
-        return render_template('derivatives.html', result=None, error=error_message, expression=expression, variable=variable)
+        return render_template('derivatives.html', result=None, error=error_message, expression=expression, variable=variable, resulttype=v )
 
 if __name__ == '__main__':
     print(f"launch fixcalc's index from platfrom [{platform}] version [{version}]...")
