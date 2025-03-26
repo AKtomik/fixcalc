@@ -1,9 +1,21 @@
 # in this file : Differents Results class. Basicily the class that store the result.
 
+#used for Newton power
+from math import comb, factorial
+from itertools import combinations_with_replacement
+
+
 def pgcd(greater, lesser):
 	if (greater%lesser==0):
 		return lesser
 	return pgcd(lesser,greater%lesser)
+
+
+def genrate_muplets_newton(n, m):
+	#generate all m-uplets (k1, k2, ..., km) as k1 + k2 + ... + km = n
+	for comb in combinations_with_replacement(range(n+1), m-1):
+		k=(0,)+comb+(n,)
+		yield tuple(k[i+1] - k[i] for i in range(m))
 
 
 def float_to_scientific_int(x):
@@ -26,6 +38,9 @@ class RoundResult(Result):
 
 	def __init__(self, floater : float):
 		self.float : float=floater
+		
+	def copy(self):
+		return RoundResult(self.float)
 	
 	def create_from_float(from_float):
 		return RoundResult(from_float)
@@ -77,6 +92,9 @@ class FractionResult(Result):
 		self.numerator : int=numerator
 		self.denominator : int=denominator
 		self.simplify()
+	
+	def copy(self):
+		return FractionResult(self.numerator, self.denominator)
 	
 	def create_from_float(from_float):
 		mantissa_int, exponent = float_to_scientific_int(from_float)
@@ -166,7 +184,7 @@ class UnitResultElement:
 		self.units=units
 	
 	def copy(self):
-		return UnitResultElement(self.amount, self.units.copy())
+		return UnitResultElement(self.amount.copy(), self.units.copy())
 
 	def if_same_unit_as(self, other):
 		if len(self.units.keys())!=len(other.units.keys()):
@@ -212,13 +230,22 @@ class UnitResultElement:
 		return result
 	
 	def __pow__(self, other):
+		#if (other is UnitResultElement):
+		#	result=self.copy()
+		#	result.amount=result.amount**other.amount
+		#	if (not other.units=={}):
+		#		raise ValueError("Cant do power with units. Remove x and other variables from power.")
+		#	for k in result.units.keys():
+		#		result.units[k]=result.units[k]*other.amount.to_float()
+		#	return result
+		#if (other is float or other is int):
+		
 		result=self.copy()
-		result.amount=result.amount**other.amount
-		if (not other.units=={}):
-			raise ValueError("Cant do power with units. Remove x and other variables from power.")
-		for k in self.units.keys():
-			result.units[k]=result.units[k]*other.amount.to_float()
+		result.amount=result.amount**Sett.result_type_class.create_from_float(other)
+		for k in result.units.keys():
+			result.units[k]=result.units[k]*other
 		return result
+		
 
 	#print
 	def __str__(self):
@@ -364,13 +391,64 @@ class UnitsResult(Result):
 	def __pow__(self, other):
 		new_one=UnitsResult()
 		new_one.compose=[]#idk why but this is NEEDED. else this is static.
+		
 		if (len(other.compose)>1):
 			raise ValueError("Cant power with more than one term. Keep only one term in the power.")
 		element_other=other.compose[0]
-		for element_self in self.compose:
-			result=element_self**element_other
-			new_one.add_element(result)
-		return new_one
+		if (not element_other.units=={}):
+			raise ValueError("Cant do power with units. Remove x and other variables from power.")
+		power_float=element_other.amount.to_float()
+		
+		# simple power
+		#logic
+		if len(self.compose)==1:
+			result=self.compose[0]**power_float
+			#result=self.compose[0]**element_other
+			new_one.compose=[result]
+			return new_one
+		
+		power_int=int(power_float)
+		if (power_int!=power_float):
+			raise ValueError("Cant ditribuate decimal power. Keep only one term in the power or remove decimal from it.")
+
+		# double power
+		#in expert
+		if len(self.compose)==2:
+			for k in range(power_int+1):
+				result =self.compose[0]**(k) 
+				result*=self.compose[1]**(power_int-k)
+				result*=UnitResultElement(Sett.result_type_class.create_from_float(comb(power_int, k)))
+				new_one.add_element(result)
+			return new_one
+
+		# greater power
+		#helped with https://en.wikipedia.org/wiki/Multinomial_theorem
+		else:
+			comp_size=len(self.compose)
+			muplets=tuple(genrate_muplets_newton(power_int, comp_size))
+			#print("muplets:",muplets)
+
+			power_factorial=factorial(power_int)
+
+			for i in range(len(muplets)-1, -1, -1):
+				plet=muplets[i]
+				plet_factor_factorial=1
+				result=UnitResultElement(Sett.result_type_class.create_from_float(1))
+
+				for j in range(comp_size):
+					element=self.compose[j]
+					result*=element**plet[j]
+					plet_factor_factorial*=factorial(plet[j])
+				
+				repetitive=int(power_factorial/plet_factor_factorial)
+				result*=UnitResultElement(Sett.result_type_class.create_from_float(repetitive))
+			
+				new_one.add_element(result)
+
+			return new_one
+
+
+		raise ValueError("Power cant distribuate to so many elements.")
 	
 	def __str__(self):
 		r=""
