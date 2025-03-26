@@ -31,7 +31,7 @@ def calculate():
         return render_template('index.html', result=result, error=None)
     except Exception as e:
         error_message = str(e) if str(e) else "Invalid expression"
-        return render_template('index.html', result=None, error="error_message")
+        return render_template('index.html', result=None, error=error_message)
 
 @app.route('/example', methods=['POST'])
 def example():

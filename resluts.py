@@ -121,7 +121,7 @@ class FractionResult(Result):
 
 	def __pow__(self, other):
 		if (not other.denominator==1):
-			raise ValueError("decomal power : cant do root with fraction (yet)")
+			raise ValueError("Cant have non-integer in power using fraction result. Switch to decimal.")
 		return FractionResult(self.numerator**other.numerator, self.denominator**other.numerator)
 	
 	def __str__(self):
@@ -217,7 +217,7 @@ class UnitResultElement:
 		result=self.copy()
 		result.amount=result.amount**other.amount
 		if (not other.units=={}):
-			raise ValueError("cant do power with units (yet)")
+			raise ValueError("Cant do power with units. Remove x and other variables from power.")
 		for k in self.units.keys():
 			result.units[k]=result.units[k]*other.amount.to_float()
 		return result
@@ -356,7 +356,7 @@ class UnitsResult(Result):
 		new_one=UnitsResult()
 		new_one.compose=[]#idk why but this is NEEDED. else this is static.
 		if (len(other.compose)>1):
-			raise ValueError("cant divide with more than one term (yet)")
+			raise ValueError("Cant divide with more than one term. Keep only one variable in the divider.")
 		element_other=other.compose[0]
 		for element_self in self.compose:
 			result=element_self/element_other
@@ -367,7 +367,7 @@ class UnitsResult(Result):
 		new_one=UnitsResult()
 		new_one.compose=[]#idk why but this is NEEDED. else this is static.
 		if (len(other.compose)>1):
-			raise ValueError("cant power with more than one term (yet)")
+			raise ValueError("Cant power with more than one term. Keep only one term in the power.")
 		element_other=other.compose[0]
 		for element_self in self.compose:
 			result=element_self**element_other
