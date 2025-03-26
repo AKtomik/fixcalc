@@ -6,13 +6,16 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - Flask : Routes / pour le formulaire et /calculate pour le calcul.
 - Gestion de la requête POST pour traiter l'expression.
 
+## Utilisation
+Le projet est utilisable ici : https://fixcalc.onrender.com/
+
 ## instalation
 1) Cloner le dépot avec `git clone https://github.com/AKtomik/fixcalc`
 2) Installer et configurer python >3.10.
 
 pour l'interface web :
 
-3) Installer [Flask](https://flask.palletsprojects.com/en/stable/installation/).
+3) Installer les dépendances avec `pip install -r requirements.txt` (ou manuellement: [Flask](https://flask.palletsprojects.com/en/stable/installation/)).
 4) Nous envoyer 3 bitcoins
 5) Exécuter [index.py](./index.py)
 6) S'amuser à dériver et calculer !

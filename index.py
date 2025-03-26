@@ -65,4 +65,5 @@ def calculate_derivatives():
         return render_template('derivatives.html', result=None, error=error_message, expression=expression, variable=variable)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True, host="127.0.0.1", port="5000")#localhost
+    app.run(debug=True, host="0.0.0.0", port="12345")#serverhost
