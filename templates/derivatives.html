@@ -153,6 +153,10 @@
                 font-size: 1.2rem;
             }
         }
+
+        .bloody {
+            color: #e35 !important;
+        }
     </style>
 </head>
 <body>
@@ -171,7 +175,7 @@
     {% if result is not none %}
         <h2>Result: {{ result }}</h2>
     {% elif error is not none %}
-        <h2>Error: {{ error }}</h2>
+        <h2 class="bloody">Error: {{ error }}</h2>
     {% endif %}
     <a href="https://github.com/AKtomik/fixcalc" class="github-btn" target="_blank">Visit on GitHub</a>
 </body>
