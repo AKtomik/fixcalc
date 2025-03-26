@@ -146,11 +146,9 @@ class FractionResult(Result):
 		self.numerator=int(self.numerator//david)
 		self.denominator=int(self.denominator//david)
 
-		#print("1)", self.numerator,"/",self.denominator)
 		if (self.denominator<0):
 			self.numerator=self.numerator*-1
 			self.denominator=self.denominator*-1
-		#print("2)", self.numerator,"/",self.denominator)
 
 
 
@@ -422,3 +420,7 @@ class Sett:
 	result_derivate_by = "xyztXYZT"
 	def set_derivate_by(all_units_str):
 		Sett.result_derivate_by  = all_units_str
+		
+	convert_const = True
+	def set_convert_const(yesOrNoLikeABool):
+		Sett.convert_const  = yesOrNoLikeABool

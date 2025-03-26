@@ -39,6 +39,9 @@ replace_shortcuts = {
 # "from": "to",
     #shortcut
     "**": "^",
+}
+
+replace_const = {
     #constants
     "e": "2.71828182845904523536",
     "E": "2.71828182845904523536",
@@ -51,6 +54,9 @@ replace_shortcuts = {
     "sipi": "3",
     "sie": "3",
     "SIE": "3",
+}
+
+replace_writte = {
     #letters
     "zero":"0",
     "one":"1",
