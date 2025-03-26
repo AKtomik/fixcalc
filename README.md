@@ -35,6 +35,7 @@ pour l'interface python :
 - [x] opérations sur les dérivées
 - [ ] opérations à entrée unique (log, e)
 - [x] constantes connues (e, pi)
+- [ ] nème distributivitée
 - [ ] affichage des erreurs de syntaxe
 - [ ] fractions avec plusieurs unitées au dénominateur
 - [ ] affichage des racines
