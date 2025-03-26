@@ -1,23 +1,26 @@
 # in this file : Some tests use and used.
 from fixcalc import *
 
-
 # tests
 
-print(calcul("X*(X+1)*(X-49)"))
-print(calcul("(X+1)*(X-49)"))
-print(calcul("(X^2-48X-49)*X"))
-print(calcul("(X+1)(X-49)(A+4012)"))
+print(calcul("(X+2)^10"))
+print(calcul("(X+Y+Z)^3"))
+print(calcul("(A+B+C+D+E+F)^2"))
 
-print(derive("X*(X+1)*(X-49)"))
-print(derive("(X+1)(X-49)(A+4012)"))
+#print(calcul("X*(X+1)*(X-49)"))
+#print(calcul("(X+1)*(X-49)"))
+#print(calcul("(X^2-48X-49)*X"))
+#print(calcul("(X+1)(X-49)(A+4012)"))
 
-print(derive("13aX"))
-print(derive(derive("13aX")))
-print(derive(derive("X^3")))
-print(derive(derive("X^10²")))
-print(derive(derive("X^(10²)")))
-print(derive("X⁹⁸"))
+#print(derive("X*(X+1)*(X-49)"))
+#print(derive("(X+1)(X-49)(A+4012)"))
+
+#print(derive("13aX"))
+#print(derive(derive("13aX")))
+#print(derive(derive("X^3")))
+#print(derive(derive("X^10²")))
+#print(derive(derive("X^(10²)")))
+#print(derive("X⁹⁸"))
 
 # old tests
 

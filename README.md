@@ -16,6 +16,7 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 
 ## Utilisation
 Le projet est utilisable ici : https://fixcalc.onrender.com/
+-# Le serveur se met en veille après une periode d'innactivitée. Prends environ 15s pour le réveiller.
 
 ## Instalation
 1) Cloner le dépot avec `git clone https://github.com/AKtomik/fixcalc`

@@ -11,7 +11,7 @@ def derive(expression : str | Result | PostFix) -> PostFix:
 
 
 # type of result computer used. FractionResult or RoundResult are valid.
-Sett.set_type_class(FractionResult)
+Sett.set_type_class(RoundResult)#FractionResult/RoundResult
 # dont change it, is OBLIGATORY for derivate and use variables (like x or y).
 Sett.set_use_unit(True)
 # by what is it derivated. Generally "xXyYtT" and/or others.
