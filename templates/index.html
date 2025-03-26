@@ -88,13 +88,19 @@
         }
 
         /* Toggle button styling */
-        .toggle-btn {
-            display: none; /* Hide the checkbox itself */
+        .toggle-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .toggle-label {
-            display: inline-block;
-            width: 100%;
+        .toggle-group input[type="radio"] {
+            display: none;
+        }
+
+        .toggle-group .toggle-label {
+            flex: 1;
+            text-align: center;
             padding: 10px;
             font-size: 1rem;
             background-color: #0070c9;
@@ -102,28 +108,14 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
 
-        /* Change background color when checked */
-        .toggle-btn:checked + .toggle-label {
+        .toggle-group input[type="radio"]:checked + .toggle-label {
             background-color: #005194;
         }
 
-        /* Add label text change on toggle */
-        .toggle-btn:checked + .toggle-label::after {
-            content: 'fraction'; /* Change text to 'decimals' when active */
-        }
-
-        .toggle-label::after {
-            content: 'décimaux'; /* Default label text */
-            transition: content 0.3s ease;
-        }
-
-        /* Hover effect to make it interactive */
-        .toggle-label:hover {
+        .toggle-group .toggle-label:hover {
             background-color: #005bb5;
         }
 
@@ -155,8 +147,13 @@
     <h1>Flask Calculator</h1>
     <form action="/calculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
-        <input type="checkbox" id="toggleButton" name="v" class="toggle-btn" style="display:none;" checked>
-        <label for="toggleButton" class="toggle-label"></label>
+        <div class="toggle-group">
+            <input type="radio" id="non" name="v" value="non" checked>
+            <input type="radio" id="decimal" name="v" value="decimal">
+            <input type="radio" id="fraction" name="v" value="fraction">
+            <label for="decimal" class="toggle-label">décimaux</label>
+            <label for="fraction" class="toggle-label">fraction</label>
+        </div>
     
         <button type="submit">Calculate</button>
     </form>

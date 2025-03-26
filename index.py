@@ -9,9 +9,10 @@ from sys import platform, version
 app = Flask(__name__)
 
 def vr(t):
-    if t:
+    print(t) 
+    if t == 'on':  # Checkbox checked
         return Sett.set_type_class(FractionResult)
-    else :
+    else:  # Checkbox unchecked
         return Sett.set_type_class(RoundResult)
 
 @app.route('/')
@@ -21,7 +22,7 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     expression = request.form.get('expression')
-    v = 'v' in request.form 
+    v = 'v' in request.form  # Will be True if checkbox is checked
     vr(v)
 
     if (not expression):
@@ -47,7 +48,7 @@ def derivatives():
 @app.route('/derivativescalculate', methods=['POST'])
 def calculate_derivatives():
     expression = request.form.get('expression')
-    v = 'v' in request.form 
+    v = 'v' in request.form  # Will be True if checkbox is checked
     vr(v)
     variable = request.form.get('variable', 'x')  # Default to 'x' if not provided
     
