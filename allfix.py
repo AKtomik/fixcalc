@@ -166,7 +166,7 @@ def infixToPostfix(infix):
 							cache.empiler(dep)
 							break
 					cache.empiler(op)
-					last_was_opening=False
+					last_was_opening=True
 					#raise Exception(f"opération [{op}] inconnue")
 					
 		#elif (typeof==int or typeof==float):
@@ -252,3 +252,9 @@ def derivatePostfixed(postfix):
 			#print("repiled both:", result[0], result[1])
 			cache.empiler(result)
 	return cache.depiler()[1]
+
+print(infixToPostfix(stringToInfix("A-B")))
+print(infixToPostfix(stringToInfix("(A+C)-B")))
+print(infixToPostfix(stringToInfix("-B")))
+print(infixToPostfix(stringToInfix("(A)(-B)")))
+print(infixToPostfix(stringToInfix("A*-B")))
