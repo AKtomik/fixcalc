@@ -1,35 +1,69 @@
 # in this file : Tricks to replace strings inside strings.
 from resluts import Sett
-from members import replace_shortcuts, replace_const, replace_writte, pow_to_digits
+from members import replace_shortcuts, replace_constvalue, replace_constletter, replace_writte, pow_to_digits, digits_to_pow
 
 
-def string_human_shortcut(string: str):
+def express_style(string: str):	#replace
+	if not string or string=="":
+		return ""
+	return replace_repower(replace_common(string))
+	#unpower
 
-	#replace
+def express_engine(string: str):
+	if not string or string=="":
+		return ""
+	return replace_unpower(replace_number(replace_common(string)))
+
+
+#def replace_unpower(string: str) -> str:
+def replace_common(string: str) -> str:
 	for k in replace_shortcuts.keys():
 		string=string.replace(k, replace_shortcuts[k])
 	if Sett.convert_const:
-		for pair in replace_const:
+		for pair in replace_constletter:
+			string=string.replace(pair[0], pair[1])
+	return string
+
+
+def replace_number(string: str) -> str:
+	if Sett.convert_const:
+		for pair in replace_constvalue:
 			string=string.replace(pair[0], pair[1])
 	for k in replace_writte.keys():
 		string=string.replace(k, replace_writte[k])
+	return string
 
-	#unpower
+def replace_unpower(string: str) -> str:
 	new_string=""
-	last_was_pow=False
+	was_pow=False
 	for char in string:
 		powdigit=pow_to_digits.get(char)
 		is_pow=(powdigit!=None)
 		if is_pow:
-			if (not last_was_pow):
+			if (not was_pow):
+				new_string+="^("
+			new_string+=powdigit
+		else:
+			if (was_pow):
+				new_string+=")"
+			new_string+=char
+		was_pow=is_pow
+	return new_string
+
+def replace_repower(string: str) -> str:
+	new_string=""
+	was_pow=False
+	for char in string:
+		powdigit=pow_to_digits.get(char)
+		is_pow=(powdigit!=None)
+		if is_pow:
+			if (not was_pow):
 				new_string+="^"
 			new_string+=powdigit
 		else:
 			new_string+=char
-		last_was_pow=is_pow
+		was_pow=is_pow
 	return new_string
-
-
 
 # derivate using replace method
 

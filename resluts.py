@@ -3,6 +3,7 @@
 #used for Newton power
 from math import comb, factorial
 from itertools import combinations_with_replacement
+from members import digits_to_pow
 
 
 def pgcd(greater, lesser):
@@ -301,21 +302,6 @@ class UnitResultElement:
 			del self.units[k]
 		return self
 
-digits_to_pow = {
-	"0":"⁰",
-	"1":"¹",
-	"2":"²",
-	"3":"³",
-	"4":"⁴",
-	"5":"⁵",
-	"6":"⁶",
-	"7":"⁷",
-	"8":"⁸",
-	"9":"⁹",
-	"-":"⁻",
-	".":"˙",
-}
-
 #pair up multiples amount and units. (eg: ["1", "2x", "4xx"], ["72xy"])
 class UnitsResult(Result):
 
@@ -502,3 +488,5 @@ class Sett:
 	convert_const = True
 	def set_convert_const(yesOrNoLikeABool):
 		Sett.convert_const  = yesOrNoLikeABool
+	
+	express_pass_to_engine=True
