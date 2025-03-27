@@ -14,14 +14,14 @@
     <form action="/toggle_theme" method="post">
         <button type="submit" class="theme-toggle-btn">
             {% if dark_theme %}
-            ☀️ Mode clair
+            ☀️
             {% else %}
-            🌙 Mode sombre
+            🌙
             {% endif %}
         </button>
     </form>
     <h1>Flask Example</h1>
-    <form action="/calculate" method="post">
+    <form class="inform" action="/calculate" method="post">
         <button type="submit" class="margin-between" name="expression" value="(33*9)/(11*27)+1">
             (33*9)/(11*27)+1
         </button>
