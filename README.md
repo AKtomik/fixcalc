@@ -45,10 +45,13 @@ pour l'interface python :
 - [x] calcul d'expression avec X^n
 - [x] dériver un résultat
 - [x] opérations sur les dérivées
+- [x] système à entrée unique
 - [ ] opérations à entrée unique (log, e)
+- [x] détection entre soustraction et négatif
 - [x] constantes connues (e, pi)
-- [ ] nème distributivitée
-- [ ] affichage des erreurs de syntaxe
+- [x] nème distributivitée
+- [x] affichage des erreurs de syntaxe (non détaillé)
 - [ ] fractions avec plusieurs unitées au dénominateur
+- [ ] unitées dans la puissance
 - [ ] affichage des racines
-- [ ] thème sombre
+- [x] thème sombre
