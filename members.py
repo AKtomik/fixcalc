@@ -3,7 +3,7 @@
 from enum import Enum
 
 valid_numbers="1234567890.,"
-valid_operators="+-*/^"
+valid_operators="+-*/^√"
 valid_parentheses="()"
 parentheses_closing=")"
 valid_none="_ "
@@ -45,6 +45,12 @@ replace_shortcuts = {
 		"logₑ": "⅃",
 		"log₁₀": "⅃",
 		"ln": "ℓ",
+		"square": "√",
+		"root": "√",
+		"sqrt": "√",
+		"racine": "√",
+		"/_": "√",
+		"_/": "√",
 }
 
 replace_constletter = [
@@ -64,12 +70,16 @@ replace_constletter = [
 
 		("exp", "𝑒"),
 		("e", "𝑒"),
+    #("E", "𝑒"),
+
+		("phi", "ϕ"),
+		("Phi", "ϕ"),
+		("PHI", "ϕ"),
 ]
 replace_constvalue = [
     ("π", "3.14159265358979323846"),
-
-    #("E", "𝑒"),
     ("𝑒", "2.71828182845904523536"),
+		("ϕ", "1.61803398874989484820"),
 ]
 
 replace_writte = {
