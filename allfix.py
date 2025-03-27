@@ -237,15 +237,28 @@ def derivatePostfixed(postfix):
 		op=postfix.depiler()
 		typeof=type(op)
 		if (typeof==str):
-			last_2=cache.depiler()
-			last_1=cache.depiler()
+
 			operatorVanilla=operators.get(op)
 			operatorDerivate=derivates.get(op)
 			if (operatorVanilla==None or operatorDerivate==None):
 				raise Exception(f"opération [{op}] inconnue")
-			else:
-				#print("depiled both:", last_1[0], last_2[0], last_1[1], last_2[1])
-				cache.empiler([operatorVanilla.operate(last_1[0], last_2[0]), operatorDerivate.derivate(last_1[0], last_2[0], last_1[1], last_2[1])])
+
+			match operatorVanilla.type:#sould be the same
+				case OperatorType.SIGNLE_COMPUTE:
+					last_1=cache.depiler()
+					if (type(last_1)==str):
+						raise ValueError("Something wrong in syntax. Checkup expression (parentheses, operators...)")
+					else:
+						cache.empiler([operatorVanilla.transformate(last_1[0]), operatorDerivate.derivmate(last_1[0], last_1[1])])
+				case OperatorType.DUAL_COMPUTE:
+					last_2=cache.depiler()
+					last_1=cache.depiler()
+					if (type(last_1)==str):
+						raise ValueError("Something wrong in syntax. Checkup expression (parentheses, operators...)")
+					elif (type(last_2)==str):
+						raise ValueError("Something wrong in syntax. Checkup expression (parentheses, operators...)")
+					else:
+						cache.empiler([operatorVanilla.operate(last_1[0], last_2[0]), operatorDerivate.derivate(last_1[0], last_2[0], last_1[1], last_2[1])])
 
 		else:
 			result=[op, op.copy().derivate()]
