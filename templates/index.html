@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body {% if dark_theme %}class="dark-theme"{% endif %}>
+    <form action="/toggle_theme" method="post">
+        <button type="submit" class="theme-toggle-btn">
+            {% if dark_theme %}
+            ☀️ Mode clair
+            {% else %}
+            🌙 Mode sombre
+            {% endif %}
+        </button>
+    </form>
     <h1>Flask Calculator</h1>
     <form action="/calculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
@@ -34,15 +43,6 @@
     </form>
     <form action="/derivatives" method="post">
         <button type="submit">derivatives</button>
-    </form>
-    <form action="/toggle_theme" method="post">
-        <button type="submit" class="theme-toggle-btn">
-            {% if dark_theme %}
-            ☀️ Mode clair
-            {% else %}
-            🌙 Mode sombre
-            {% endif %}
-        </button>
     </form>
     
     {% if expressed is not none %}
