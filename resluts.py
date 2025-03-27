@@ -54,14 +54,13 @@ class RoundResult(Result):
 			return int(self.float)
 		return self.float
 	
-	def is_one(self):
-		return self.float==1
-
-	def is_zero(self):
-		return self.float==0
 	
 	def is_positive(self):
 		return self.float>0
+	
+	def __eq__(self, value):
+		return self.float==value
+
 
 	def __add__(self, other):
 		self.float=self.float+other.float
@@ -117,16 +116,13 @@ class FractionResult(Result):
 	
 	def to_float(self):
 		return self.numerator/self.denominator
-	
 
-	def is_one(self):
-		return self.numerator==1 and self.denominator==1
-
-	def is_zero(self):
-		return self.numerator==0
 	
 	def is_positive(self):
 		return self.numerator*self.denominator>0
+
+	def __eq__(self, value):
+		return (self.numerator/self.denominator)==value
 	
 	
 	def __add__(self, other):
@@ -256,10 +252,10 @@ class UnitResultElement:
 	def __str__(self):
 		r=""
 		#show_amount=True
-		show_amount=not (self.amount.is_one() and self.units!={})
+		show_amount=not ((self.amount==1 or self.amount==-1) and self.units!={})
 
 		# display sign
-		if (self.amount.is_positive() or self.amount.is_zero()):
+		if (self.amount.is_positive() or self.amount==0):
 			r+="+"
 		elif (not show_amount):
 			r+="-"
