@@ -21,6 +21,9 @@ class Operator:
 	
 	def operate(self, a, b):
 		return self.action(a,b)
+	
+	def transformate(self, a):
+		return self.action(a)
     
 	def derivate(self, a, b, da, db):
 		return self.action(a, b, da, db)
@@ -47,6 +50,7 @@ operators = {
 	'^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b : a**b, 3),
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
+	'_': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : -a, 1),
 }
 derivates = {
     '+': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da+db),

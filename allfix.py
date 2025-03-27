@@ -1,6 +1,6 @@
 # in this file : PostFix class and fix convertions/operations.
 
-from operators import operators, derivates
+from operators import operators, derivates, OperatorType
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
 from resluts import Sett, Result
 from replace import express_engine
@@ -135,6 +135,7 @@ def infixToPostfix(infix):
 	#print("infix=",infix)
 	cache=Pile()#p
 	postfix=Pile()#T'
+	last_was_opening=True
 	while not infix.est_vide():
 		op=infix.depiler()
 
@@ -145,23 +146,27 @@ def infixToPostfix(infix):
 				
 				case '(':
 					cache.empiler('(')
+					last_was_opening=True
 					
 				case ')':
 					dep=cache.depiler()
 					while dep!='(':#cache.est_vide() cant be true
 						postfix.empiler(dep)
 						dep=cache.depiler()
+					last_was_opening=False
 
 				case _:
-					if (not cache.est_vide()):
-						while (not cache.est_vide()):
-							dep=cache.depiler()
-							if (not operators[dep].is_parenthese() and operators[dep].get_strength()>=operators[op].get_strength()):
-								postfix.empiler(dep)
-							else:
-								cache.empiler(dep)
-								break
+					if (last_was_opening and op=="-"):#!special case
+						op="_"
+					while (not cache.est_vide()):
+						dep=cache.depiler()
+						if (not operators[dep].is_parenthese() and operators[dep].get_strength()>=operators[op].get_strength()):
+							postfix.empiler(dep)
+						else:
+							cache.empiler(dep)
+							break
 					cache.empiler(op)
+					last_was_opening=False
 					#raise Exception(f"opération [{op}] inconnue")
 					
 		#elif (typeof==int or typeof==float):
@@ -169,6 +174,7 @@ def infixToPostfix(infix):
 		#else:
 		#	raise Exception(f"type [{typeof}] de [{op}] non pris en charge")
 		else:
+			last_was_opening=False
 			postfix.empiler(op)
 			
 	while (not cache.est_vide()):
@@ -185,17 +191,31 @@ def infixToPostfix(infix):
 def calculatePostfixed(postfix):
 	#print("postfix=",postfix)
 	cache=Pile()
+	cache.empiler("¤")
+	cache.empiler("¤")
 	while not postfix.est_vide():
 		op=postfix.depiler()
 		typeof=type(op)
 		if (typeof==str):
-			last_2=cache.depiler()
-			last_1=cache.depiler()
 			operatorHere=operators.get(op)
 			if (operatorHere==None):
 				raise Exception(f"opération [{op}] inconnue")
-			else:
-				cache.empiler(operatorHere.operate(last_1,last_2))
+			match operatorHere.type:
+				case OperatorType.SIGNLE_COMPUTE:
+					last_1=cache.depiler()
+					if (type(last_1)==str):
+						raise ValueError("Something wrong in syntax. Checkup expression (parentheses, operators...)")
+					else:
+						cache.empiler(operatorHere.transformate(last_1))
+				case OperatorType.DUAL_COMPUTE:
+					last_2=cache.depiler()
+					last_1=cache.depiler()
+					if (type(last_1)==str):
+						raise ValueError("Something wrong in syntax. Checkup expression (parentheses, operators...)")
+					elif (type(last_2)==str):
+						raise ValueError("Something wrong in syntax. Checkup expression (parentheses, operators...)")
+					else:
+						cache.empiler(operatorHere.operate(last_1,last_2))
 		#elif (typeof==int or typeof==float):
 		#	cache.empiler(op)
 		#else:
