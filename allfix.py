@@ -80,7 +80,8 @@ def stringToInfix(string):
 				
 			closing=(char in parentheses_closing)
 			#smart multiplication
-			if ((last_closing and last_was==MemberType.PARENTHESE) or not closing and (last_was==MemberType.NUMBER_FLOAT or last_was==MemberType.UNIT)):
+			if ((last_closing and not closing and last_was==MemberType.PARENTHESE) 
+					or not closing and (last_was==MemberType.NUMBER_FLOAT or last_was==MemberType.UNIT)):
 				infix.empiler('*')
 			last_was=MemberType.PARENTHESE
 			last_closing=(closing)
@@ -265,3 +266,6 @@ def derivatePostfixed(postfix):
 			#print("repiled both:", result[0], result[1])
 			cache.empiler(result)
 	return cache.depiler()[1]
+
+print(infixToPostfix(stringToInfix("A^(3)")))
+print(infixToPostfix(stringToInfix("((A))")))

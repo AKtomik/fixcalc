@@ -46,9 +46,9 @@ pour l'interface python :
 - [x] dériver un résultat
 - [x] opérations sur les dérivées
 - [x] système à entrée unique
-- [ ] opérations à entrée unique (log, e)
+- [x] opérations à entrée unique (racine) (ajouter plus ?)
 - [x] détection entre soustraction et négatif
-- [x] constantes connues (e, pi)
+- [x] constantes connues (e, pi, phi)
 - [x] nème distributivitée
 - [x] affichage des erreurs de syntaxe (non détaillé)
 - [ ] fractions avec plusieurs unitées au dénominateur

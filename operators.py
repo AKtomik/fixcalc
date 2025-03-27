@@ -54,14 +54,17 @@ operators = {
 	'(': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	'_': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : -a, 4),
+	'√': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : a**Sett.result_build_class.create_from_float(1/2), 4),
+	#√∛∜⎷
 	#'𝑒': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : Sett.result_build_class.create_from_float(2.71828182845904523536)**a, 4),#ok dont
 	#'ℓ': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : 0, 4),#ok got la
 }
 derivates = {
-    '+': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da+db),
-    '-': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da-db),
-    '*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da*b+db*a),
-    '/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : (da*b-db*a)/(b)**Sett.result_build_class.create_from_float(2)),
-    '^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : b*(a**(b - Sett.result_build_class.create_from_float(1)))*da),
-		'_': Operator(OperatorType.SIGNLE_COMPUTE, lambda a, da : -da, 4),
+  '+': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da+db),
+  '-': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da-db),
+  '*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da*b+db*a),
+  '/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : (da*b-db*a)/(b)**Sett.result_build_class.create_from_float(2)),
+  '^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : b*(a**(b - Sett.result_build_class.create_from_float(1)))*da),
+	'_': Operator(OperatorType.SIGNLE_COMPUTE, lambda a, da : -da, 4),
+	'√': Operator(OperatorType.SIGNLE_COMPUTE, lambda a, da : Sett.result_build_class.create_from_float(1/2)*(a**(-Sett.result_build_class.create_from_float(1/2)))*da, 4),
 }
