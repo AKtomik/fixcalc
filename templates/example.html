@@ -5,170 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Example</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-            background-color: #f5f5f7;
-            color: #1d1d1f;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            color: #0070c9;
-        }
-
-        /* Form styling */
-        form {
-            background-color: #ffffff;
-            border: 1px solid #d2d2d7;
-            border-radius: 12px;
-            padding: 20px;
-            width: 300px;
-            margin: 0 auto;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        input {
-            width: calc(100% - 24px);
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 1rem;
-            border: 1px solid #d2d2d7;
-            border-radius: 8px;
-            outline: none;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: #0070c9;
-            box-shadow: 0 0 5px rgba(0, 112, 201, 0.5);
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            background-color: #0070c9;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        button:hover {
-            background-color: #005bb5;
-        }
-
-        /* GitHub button styling */
-        .github-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
-            background-color: #24292f;
-            color: white;
-            font-size: 1rem;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .github-btn:hover {
-            background-color: #3b4045;
-        }
-
-        /* Toggle button styling */
-        .toggle-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .toggle-group input[type="radio"] {
-            display: none;
-        }
-
-        .toggle-label {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            font-size: 1rem;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s ease;
-
-            background-color: #fff0;
-            color: #0070c9;
-            box-shadow:0px 0px 0px .1em #0070c9 inset;
-        }
-
-        .toggle-group .toggle-label:hover {
-            box-shadow:0px 0px 0px .15em #005bb5 inset;
-            background-color: ;
-        }
-
-        .toggle-group input[type="radio"]:checked + .toggle-label {
-            box-shadow:0px 0px 0px .3em #0070c9 inset;
-        }
-
-        /* Responsive styling */
-        @media (max-width: 600px) {
-            body {
-                margin: 20px;
-            }
-
-            form {
-                width: 90%;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-            }
-        }
-        
-        .bloody {
-            color: #e35 !important;
-        }
+        /*avoid any display before linking css*/
+        body {display: none;}
     </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Flask Example</h1>
     <form action="/calculate" method="post">
-        <button type="submit" name="expression" value="(33*9)/(11*27)+1">
+        <button type="submit" class="margin-between" name="expression" value="(33*9)/(11*27)+1">
             (33*9)/(11*27)+1
         </button>
-        <button type="submit" name="expression" value="314+1592-6535/8979*32+38">
+        <button type="submit" class="margin-between" name="expression" value="314+1592-6535/8979*32+38">
             314+1592-6535/8979*32+38
         </button>
-        <button type="submit" name="expression" value="74x+3*4x">
+        <button type="submit" class="margin-between" name="expression" value="74x+3*4x">
             74x+3*4x
         </button>
-        <button type="submit" name="expression" value="(74x+3)*4x">
+        <button type="submit" class="margin-between" name="expression" value="(74x+3)*4x">
             (74x+3)*4x
         </button>
-        <button type="submit" name="expression" value="42x(37x²+9)">
+        <button type="submit" class="margin-between" name="expression" value="42x(37x²+9)">
             42y(37x²+9)
         </button>
-        <button type="submit" name="expression" value="2**(1/2)">
+        <button type="submit" class="margin-between" name="expression" value="2**(1/2)">
             2**(1/2)
         </button>
-        <button type="submit" name="expression" value="18pi/3">
+        <button type="submit" class="margin-between" name="expression" value="18pi/3">
             18pi/3
         </button>
         <div class="toggle-group">
