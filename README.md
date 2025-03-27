@@ -51,3 +51,4 @@ pour l'interface python :
 - [ ] affichage des erreurs de syntaxe
 - [ ] fractions avec plusieurs unitées au dénominateur
 - [ ] affichage des racines
+- [ ] thème sombre

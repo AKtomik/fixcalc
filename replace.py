@@ -1,6 +1,6 @@
 # in this file : Tricks to replace strings inside strings.
 from resluts import Sett
-from members import replace_shortcuts, replace_constvalue, replace_constletter, replace_writte, pow_to_digits, digits_to_pow
+from members import replace_shortcuts, replace_constvalue, replace_constletter, replace_writte, pow_to_digits, digits_to_pow, valid_numbers
 
 
 def express_style(string: str):	#replace
@@ -52,17 +52,20 @@ def replace_unpower(string: str) -> str:
 
 def replace_repower(string: str) -> str:
 	new_string=""
-	was_pow=False
+	is_pow=False
 	for char in string:
-		powdigit=pow_to_digits.get(char)
-		is_pow=(powdigit!=None)
-		if is_pow:
-			if (not was_pow):
+		if (char) is "^":
+			if (is_pow):
 				new_string+="^"
-			new_string+=powdigit
+			is_pow=True
+		elif (is_pow):
+			if char in valid_numbers:
+				new_string+=digits_to_pow[char]
+			else:
+				new_string+=char
+				is_pow=False
 		else:
 			new_string+=char
-		was_pow=is_pow
 	return new_string
 
 # derivate using replace method
