@@ -3,7 +3,7 @@
 from flask import Flask, request, render_template, session
 from fixcalc import calcul, derive
 from resluts import FractionResult ,RoundResult, Sett
-from replace import express_style
+from replace import express_style, express_engine
 
 from sys import platform, version
 
@@ -39,7 +39,7 @@ def calculate():
 
     try:
         result = calcul(expression)
-        print(result)
+        print(expression, "=", express_engine(expression), "=", expressed,"→calcul()→", result)
         return render_template('index.html', result=result, error=None, resulttype=v, expressed=expressed, dark_theme=session.get('dark_theme', False))
     except Exception as e:
         error_message = str(e) if str(e) else "Invalid expression"
@@ -67,6 +67,7 @@ def calculate_derivatives():
         #Sett.set_derivate_by("xyztXYZT")
         # Pass the expression to the derive function
         result = derive(expression)
+        print(expression, "=", express_engine(expression), "=", expressed,"→derive()→", result)
         return render_template('derivatives.html', result=result, error=None, resulttype=v, expressed=expressed, dark_theme=session.get('dark_theme', False))
     except Exception as e:
         error_message = str(e) if str(e) else "Expression invalide"

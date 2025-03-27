@@ -18,7 +18,6 @@ class PostFix:
 			self.pile=Pile()
 		elif isinstance(expression,str):
 			expression=express_engine(expression)
-			print(expression)
 			self.pile=infixToPostfix(stringToInfix(expression))
 		elif isinstance(expression,PostFix):
 			self.pile=expression.pile
