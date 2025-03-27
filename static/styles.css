@@ -1,4 +1,3 @@
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     text-align: center;
@@ -6,6 +5,66 @@ body {
     background-color: #f5f5f7;
     color: #1d1d1f;
     display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-theme {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme h1 {
+    color: #ffffff;
+}
+
+body.dark-theme h2 {
+    color: #4dabf7;
+}
+
+body.dark-theme form {
+    background-color: #2d2d2d;
+    border: 1px solid #404040;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme input {
+    background-color: #333333;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+}
+
+body.dark-theme input:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 5px rgba(77, 171, 247, 0.5);
+}
+
+body.dark-theme .info-message,
+body.dark-theme .info-calcul {
+    color: #b0b0b0;
+}
+
+body.dark-theme .github-btn {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+}
+
+body.dark-theme .github-btn:hover {
+    background-color: #404040;
+}
+
+body.dark-theme .toggle-label {
+    background-color: #333333;
+    color: #4dabf7;
+    box-shadow: 0px 0px 0px .1em #4dabf7 inset;
+}
+
+body.dark-theme .toggle-group .toggle-label:hover {
+    box-shadow: 0px 0px 0px .15em #339af0 inset;
+}
+
+body.dark-theme .toggle-group input[type="radio"]:checked + .toggle-label {
+    box-shadow: 0px 0px 0px .3em #4dabf7 inset;
 }
 
 h1 {
@@ -159,4 +218,32 @@ button:hover {
 
 .bloody {
     color: #e35 !important;
+}
+
+/* Theme toggle button styling */
+.theme-toggle-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+body.dark-theme .theme-toggle-btn {
+    background-color: #333333;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #e0e0e0;
+}
+
+body.dark-theme .theme-toggle-btn:hover {
+    background-color: #404040;
 }
