@@ -32,9 +32,11 @@
     <form action="/calculate" method="post">
         <button type="submit">back</button>
     </form>
-    
+    {% if expressed is not none %}
+        <p class="info-calcul">({{ expressed }})'</p>
+    {% endif %}
     {% if result is not none %}
-        <h2>Result: {{ result }}</h2>
+        <h2>=</br>{{ result }}</h2>
     {% elif error is not none %}
         <h2 class="bloody">Error: {{ error }}</h2>
     {% endif %}

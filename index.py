@@ -3,6 +3,7 @@
 from flask import Flask, request, render_template
 from fixcalc import calcul, derive
 from resluts import FractionResult ,RoundResult, Sett
+from replace import express_style
 
 from sys import platform, version
 
@@ -18,24 +19,25 @@ def vr(t):
 
 @app.route('/')
 def index():
-    return render_template('index.html', result=None, error=None,)
+    return render_template('index.html', result=None, error=None, resulttype=None, expressed=None)
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
     expression = request.form.get('expression')
     v = request.form.get('v', 'decimal')  # Default to decimal if not specified
     vr(v)
-
     if (not expression):
-        return render_template('index.html', cbouton = stc, result=None, error=None, resulttype=v )
+        return render_template('index.html', cbouton = stc, result=None, error=None, resulttype=v, expressed=None)
+    
+    expressed = express_style(expression)
 
     try:
         result = calcul(expression)
         print(result)
-        return render_template('index.html', result=result, error=None, resulttype=v )
+        return render_template('index.html', result=result, error=None, resulttype=v, expressed=expressed)
     except Exception as e:
         error_message = str(e) if str(e) else "Invalid expression"
-        return render_template('index.html', result=None, error=error_message, resulttype=v )
+        return render_template('index.html', result=None, error=error_message, resulttype=v, expressed=expressed)
 
 @app.route('/example', methods=['POST'])
 def example():
@@ -44,29 +46,25 @@ def example():
 @app.route('/derivatives')
 @app.route('/derivatives', methods=['POST'])
 def derivatives():
-    return render_template('derivatives.html', result=None, error=None, expression=None, variable='x', resulttype=None )
+    return render_template('derivatives.html', result=None, error=None, resulttype=None, expressed=None)
 
 @app.route('/derivativescalculate', methods=['POST'])
 def calculate_derivatives():
     expression = request.form.get('expression')
+    expressed = express_style(expression)
     v = request.form.get('v', 'decimal')  # Default to decimal if not specified
     vr(v)
-    variable = request.form.get('variable', 'x')  # Default to 'x' if not provided
-    
-    # Validate that variable is a single character
-    if len(variable.strip()) != 1:
-        return render_template('derivatives.html', result=None, error="La variable doit être un seul caractère", expression=expression, variable=variable, resulttype=v)
-    
+
     try:
         # Could be added in the future :
         #Sett.set_use_unit(True)
         #Sett.set_derivate_by("xyztXYZT")
-        # Pass the variable to the derive function
+        # Pass the expression to the derive function
         result = derive(expression)
-        return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable, resulttype=v )
+        return render_template('derivatives.html', result=result, error=None, resulttype=v, expressed=expressed)
     except Exception as e:
         error_message = str(e) if str(e) else "Expression invalide"
-        return render_template('derivatives.html', result=None, error=error_message, expression=expression, variable=variable, resulttype=v )
+        return render_template('derivatives.html', result=None, error=error_message, expressed=expressed)
 
 if __name__ == '__main__':
     print(f"launch fixcalc's index from platfrom [{platform}] version [{version}]...")

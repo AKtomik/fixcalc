@@ -3,7 +3,7 @@
 from operators import operators, derivates
 from members import MemberType, valid_none, valid_numbers, valid_operators, valid_parentheses, parentheses_closing
 from resluts import Sett, Result
-from replace import string_human_shortcut
+from replace import express_engine
 
 from dep.pile import Pile
 #from dep.file import File
@@ -17,7 +17,7 @@ class PostFix:
 		if expression is None:
 			self.pile=Pile()
 		elif isinstance(expression,str):
-			expression=string_human_shortcut(expression)
+			expression=express_engine(expression)
 			self.pile=infixToPostfix(stringToInfix(expression))
 		elif isinstance(expression,PostFix):
 			self.pile=expression.pile
