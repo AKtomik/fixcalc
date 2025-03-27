@@ -21,12 +21,15 @@ class Operator:
 	
 	def operate(self, a, b):
 		return self.action(a,b)
+	  
+	def derivate(self, a, b, da, db):
+		return self.action(a, b, da, db)
 	
 	def transformate(self, a):
 		return self.action(a)
-    
-	def derivate(self, a, b, da, db):
-		return self.action(a, b, da, db)
+	
+	def derivmate(self, a, da):
+		return self.action(a, da)
 	
 	def get_strength(self):
 		"""
@@ -52,12 +55,13 @@ operators = {
 	')': Operator(OperatorType.PARENTHESES, None, 10),#special operator.
 	'_': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : -a, 4),
 	#'𝑒': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : Sett.result_build_class.create_from_float(2.71828182845904523536)**a, 4),#ok dont
-	#'ℓ': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : 0, 4),#ok got lazy
+	#'ℓ': Operator(OperatorType.SIGNLE_COMPUTE, lambda a : 0, 4),#ok got la
 }
 derivates = {
     '+': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da+db),
     '-': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da-db),
     '*': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : da*b+db*a),
     '/': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : (da*b-db*a)/(b)**Sett.result_build_class.create_from_float(2)),
-    '^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : b*(a**(b - Sett.result_build_class.create_from_float(1)))*da)
+    '^': Operator(OperatorType.DUAL_COMPUTE, lambda a, b, da, db : b*(a**(b - Sett.result_build_class.create_from_float(1)))*da),
+		'_': Operator(OperatorType.SIGNLE_COMPUTE, lambda a, da : -da, 4),
 }
