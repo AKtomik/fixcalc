@@ -14,14 +14,14 @@
     <form action="/toggle_theme" method="post">
         <button type="submit" class="theme-toggle-btn">
             {% if dark_theme %}
-            ☀️ Mode clair
+            ☀️
             {% else %}
-            🌙 Mode sombre
+            🌙
             {% endif %}
         </button>
     </form>
     <h1>Flask Derivative</h1>
-    <form action="/derivativescalculate" method="post">
+    <form class="inform" action="/derivativescalculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
         <div class="toggle-group">
             <input type="radio" id="decimal" name="v" value="decimal" 
@@ -38,7 +38,7 @@
         <button type="submit">Calculate</button>
         <p class="info-message">Note: The derivative will be calculated with respect to x, y, z, and t.</p>
     </form>
-    <form action="/calculate" method="post">
+    <form class="inform" action="/calculate" method="post">
         <button type="submit">back</button>
     </form>
     {% if expressed is not none %}

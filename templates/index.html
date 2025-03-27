@@ -14,14 +14,14 @@
     <form action="/toggle_theme" method="post">
         <button type="submit" class="theme-toggle-btn">
             {% if dark_theme %}
-            ☀️ Mode clair
+            ☀️
             {% else %}
-            🌙 Mode sombre
+            🌙
             {% endif %}
         </button>
     </form>
     <h1>Flask Calculator</h1>
-    <form action="/calculate" method="post">
+    <form class="inform" action="/calculate" method="post">
         <input type="text" name="expression" placeholder="Enter expression" required>
         <div class="toggle-group">
             <input type="radio" id="decimal" name="v" value="decimal" 
@@ -38,10 +38,10 @@
     
         <button type="submit">Calculate</button>
     </form>
-    <form action="/example" method="post">
+    <form class="inform" action="/example" method="post">
         <button type="submit">Example Page</button>
     </form>
-    <form action="/derivatives" method="post">
+    <form class="inform" action="/derivatives" method="post">
         <button type="submit">derivatives</button>
     </form>
     
