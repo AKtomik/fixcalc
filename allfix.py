@@ -252,9 +252,3 @@ def derivatePostfixed(postfix):
 			#print("repiled both:", result[0], result[1])
 			cache.empiler(result)
 	return cache.depiler()[1]
-
-print(infixToPostfix(stringToInfix("A-B")))
-print(infixToPostfix(stringToInfix("(A+C)-B")))
-print(infixToPostfix(stringToInfix("-B")))
-print(infixToPostfix(stringToInfix("(A)(-B)")))
-print(infixToPostfix(stringToInfix("A*-B")))
