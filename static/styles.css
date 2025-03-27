@@ -222,16 +222,19 @@ button:hover {
 
 /* Theme toggle button styling */
 .theme-toggle-btn {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    background-color: #f0f0f0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: auto;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+
     color: #333;
     border: 1px solid #d2d2d7;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
+    z-index: 1000;
 }
 
 body.dark-theme .theme-toggle-btn {
