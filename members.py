@@ -39,6 +39,12 @@ replace_shortcuts = {
 # "from": "to",
     #shortcut
     "**": "^",
+		
+		#functions
+		"log": "⅃",
+		"logₑ": "⅃",
+		"log₁₀": "⅃",
+		"ln": "ℓ",
 }
 
 replace_constletter = [
@@ -55,12 +61,14 @@ replace_constletter = [
     ("pi", "π"),
     ("pI", "π"),
     ("Pi", "π"),
+
+		("exp", "𝑒"),
+		("e", "𝑒"),
 ]
 replace_constvalue = [
     ("π", "3.14159265358979323846"),
 
     #("E", "𝑒"),
-	("e", "𝑒"),
     ("𝑒", "2.71828182845904523536"),
 ]
 
@@ -77,6 +85,11 @@ replace_writte = {
     "eigth":"8",
     "nine":"9",
     "ten":"10",
+}
+
+replace_style = {
+	"⅃": "log₁₀",
+	"ℓ": "logₑ",
 }
 
 
