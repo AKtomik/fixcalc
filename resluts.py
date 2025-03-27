@@ -83,6 +83,9 @@ class RoundResult(Result):
 		self.float=self.float**other.float
 		return self
 	
+	def __neg__(self):
+		return RoundResult(-self.float)
+	
 	def __str__(self):
 		return str(self.to_float())
 		
@@ -142,6 +145,9 @@ class FractionResult(Result):
 		if (not other.denominator==1):
 			raise ValueError("Cant have non-integer in power using fraction result. Switch to decimal.")
 		return FractionResult(self.numerator**other.numerator, self.denominator**other.numerator)
+	
+	def __neg__(self):
+		return FractionResult(-self.numerator, self.denominator)
 	
 	def __str__(self):
 		self.simplify()
@@ -203,10 +209,8 @@ class UnitResultElement:
 	def create_from_string(the_string):
 		return UnitResultElement(Sett.result_type_class.create_from_string(the_string))
 	
-	#mutate
 	def __neg__(self):
-		self.amount*=Sett.result_type_class(-1)
-		return self
+		return UnitResultElement(-self.amount.copy(), self.units.copy())
 	
 	#operation
 	# here operation are between element, and used by ONLY UnitsReslut
@@ -436,6 +440,14 @@ class UnitsResult(Result):
 
 		raise ValueError("Power cant distribuate to so many elements.")
 	
+
+	def __neg__(self):
+		new_one=UnitsResult()
+		new_one.compose=[]#idk why but this is NEEDED. else this is static.
+		for i in range(len(self.compose)):
+			new_one.add_element(-self.compose[i])
+		return new_one
+
 	def __str__(self):
 		r=""
 		self.simplify()
@@ -464,11 +476,11 @@ class UnitsResult(Result):
 class Sett:
 	#static
 
-	result_type_class = UnitsResult
+	result_type_class = RoundResult
 	def set_type_class(className):
 		Sett.result_type_class = className
 
-	result_build_class=UnitsResult
+	result_build_class= UnitsResult
 	#def set_build_class(className):
 	#	Sett.result_type_class = className
 		
