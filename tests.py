@@ -8,6 +8,7 @@ print(calcul("(X+Y+Z)^3"))
 print(calcul("(A+B+C+D+E+F)^2"))
 print(calcul("-A"))
 print(calcul("(20)(-A)"))
+print(calcul("A*-A^2"))
 
 #print(calcul("X*(X+1)*(X-49)"))
 #print(calcul("(X+1)*(X-49)"))
