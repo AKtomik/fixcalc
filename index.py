@@ -27,24 +27,24 @@ def calculate():
     vr(v)
 
     if (not expression):
-        return render_template('index.html', cbouton = stc, result=None, error=None)
+        return render_template('index.html', cbouton = stc, result=None, error=None, resulttype=v )
 
     try:
         result = calcul(expression)
         print(result)
-        return render_template('index.html', result=result, error=None, resulttype=v)
+        return render_template('index.html', result=result, error=None, resulttype=v )
     except Exception as e:
         error_message = str(e) if str(e) else "Invalid expression"
         return render_template('index.html', result=None, error=error_message, resulttype=v )
 
 @app.route('/example', methods=['POST'])
 def example():
-    return render_template('example.html')
+    return render_template('example.html', resulttype=None )
 
 @app.route('/derivatives')
 @app.route('/derivatives', methods=['POST'])
 def derivatives():
-    return render_template('derivatives.html', result=None, error=None, expression=None, variable='x')
+    return render_template('derivatives.html', result=None, error=None, expression=None, variable='x', resulttype=None )
 
 @app.route('/derivativescalculate', methods=['POST'])
 def calculate_derivatives():
@@ -63,7 +63,7 @@ def calculate_derivatives():
         #Sett.set_derivate_by("xyztXYZT")
         # Pass the variable to the derive function
         result = derive(expression)
-        return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable, resulttype=v)
+        return render_template('derivatives.html', result=result, error=None, expression=expression, variable=variable, resulttype=v )
     except Exception as e:
         error_message = str(e) if str(e) else "Expression invalide"
         return render_template('derivatives.html', result=None, error=error_message, expression=expression, variable=variable, resulttype=v )
