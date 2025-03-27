@@ -48,6 +48,8 @@ def replace_unpower(string: str) -> str:
 				new_string+=")"
 			new_string+=char
 		was_pow=is_pow
+	if (was_pow):
+		new_string+=")"
 	return new_string
 
 def replace_repower(string: str) -> str:
