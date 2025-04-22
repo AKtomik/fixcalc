@@ -1,3 +1,7 @@
+## Utilisation
+Le projet est utilisable ici : https://fixcalc.onrender.com/
+> Le serveur se met en veille après une periode d'innactivitée. Prends environ 15s pour le réveiller.
+
 ## Scolaire
 projet de groupe : Tom et Evann
 ### Une logique objet !
@@ -13,10 +17,6 @@ Une calculatrice web utilisant Flask (backend) et HTML/CSS (frontend).
 - Backend : Import de calcul et derive depuis calculate.
 - Flask : Routes / pour le formulaire et /calculate pour le calcul.
 - Gestion de la requête POST pour traiter l'expression.
-
-## Utilisation
-Le projet est utilisable ici : https://fixcalc.onrender.com/
-> Le serveur se met en veille après une periode d'innactivitée. Prends environ 15s pour le réveiller.
 
 ## Instalation
 1) Cloner le dépot avec `git clone https://github.com/AKtomik/fixcalc`
